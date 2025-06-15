@@ -5,7 +5,7 @@ import com.github.lucasbarbosaalves.catalog.domain.validation.ValidationHandler;
 
 import java.time.Instant;
 
-public class Category extends AggregateRoot<CategoryID> {
+public class Category extends AggregateRoot<CategoryID> implements Cloneable{
 
     private CategoryID id;
     private String name;
@@ -31,6 +31,10 @@ public class Category extends AggregateRoot<CategoryID> {
         final var now = Instant.now();
         final var deletedAt = isActive ? null : now;
         return new Category(id, name, description, isActive, now, now, deletedAt);
+    }
+
+    public static Category clone(final Category category) {
+        return category.clone();
     }
 
     @Override
@@ -92,5 +96,14 @@ public class Category extends AggregateRoot<CategoryID> {
         this.description = description;
         this.updatedAt = Instant.now();
         return this;
+    }
+
+    @Override
+    protected Category clone() {
+        try {
+            return (Category) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new RuntimeException("Failed to clone Category", e);
+        }
     }
 }
