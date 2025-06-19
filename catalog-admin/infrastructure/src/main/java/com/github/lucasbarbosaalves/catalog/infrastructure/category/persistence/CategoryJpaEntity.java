@@ -32,6 +32,8 @@ public class CategoryJpaEntity {
     private Instant deletedAt;
 
 
+
+
     public CategoryJpaEntity() {
     }
 
@@ -103,5 +105,29 @@ public class CategoryJpaEntity {
 
     public Instant getDeletedAt() {
         return deletedAt;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public void setCreatedAt(Instant createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public void setUpdatedAt(Instant updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public void setDeletedAt(Instant deletedAt) {
+        this.deletedAt = deletedAt;
     }
 }
