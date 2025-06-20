@@ -34,7 +34,7 @@ public class Category extends AggregateRoot<CategoryID> implements Cloneable{
         return new Category(id, name, description, isActive, now, now, deletedAt);
     }
 
-    public static Category clone(final Category category) {
+    public Category clone(final Category category) {
         return category.clone();
     }
 
