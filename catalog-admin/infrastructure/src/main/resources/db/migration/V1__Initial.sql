@@ -1,9 +1,9 @@
-create table category (
-    id VARCHAR(36) not null PRIMARY KEY,
-    name VARCHAR(255) not null,
-    description VARCHAR(4000) not null,
-    active BOOLEAN not null default TRUE,
-    created_at DATETIME(6) not null,
-    updated_at DATETIME(6) not null,
-    deleted_at DATETIME(6) null
+CREATE TABLE categories (
+                            id CHAR(36) NOT NULL PRIMARY KEY,
+                            name VARCHAR(255) NOT NULL,
+                            description VARCHAR(4000),
+                            active BOOLEAN NOT NULL DEFAULT TRUE,
+                            created_at DATETIME(6) NOT NULL,
+                            updated_at DATETIME(6) NOT NULL,
+                            deleted_at DATETIME(6) NULL
 );
