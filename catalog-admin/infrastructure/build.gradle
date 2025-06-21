@@ -35,6 +35,9 @@ dependencies {
 
     implementation 'com.mysql:mysql-connector-j'
 
+    // https://mvnrepository.com/artifact/io.vavr/vavr
+    implementation 'io.vavr:vavr:0.10.4'
+
     implementation('org.springframework.boot:spring-boot-starter-web') {
         exclude(module: 'spring-boot-starter-tomcat')
     }

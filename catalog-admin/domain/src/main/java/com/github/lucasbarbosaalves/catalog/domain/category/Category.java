@@ -4,6 +4,7 @@ import com.github.lucasbarbosaalves.catalog.domain.AggregateRoot;
 import com.github.lucasbarbosaalves.catalog.domain.validation.ValidationHandler;
 
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
 public class Category extends AggregateRoot<CategoryID> implements Cloneable{
@@ -29,12 +30,12 @@ public class Category extends AggregateRoot<CategoryID> implements Cloneable{
 
     public static Category newCategory(final String name, final String description, final boolean isActive) {
         final var id = CategoryID.unique();
-        final var now = Instant.now();
+        final var now = Instant.now().truncatedTo(ChronoUnit.MICROS);
         final var deletedAt = isActive ? null : now;
         return new Category(id, name, description, isActive, now, now, deletedAt);
     }
 
-    public Category clone(final Category category) {
+    public static Category clone(final Category category) {
         return category.clone();
     }
 

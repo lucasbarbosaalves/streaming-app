@@ -2,7 +2,7 @@
 package com.github.lucasbarbosaalves.catalog.infrastructure.category.persistence;
 
 import com.github.lucasbarbosaalves.catalog.domain.category.Category;
-import com.github.lucasbarbosaalves.catalog.infrastructure.MySQLGatewayTest;
+import com.github.lucasbarbosaalves.catalog.MySQLGatewayTest;
 import org.hibernate.PropertyValueException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

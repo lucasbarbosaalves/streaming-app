@@ -25,14 +25,11 @@ public class CategoryJpaEntity {
     @Column(name = "created_at", nullable = false, columnDefinition = "DATETIME(6)")
     private Instant createdAt;
 
-    @Column(name = "updatedAt", nullable = false, columnDefinition = "DATETIME(6)")
+    @Column(name = "updated_At", nullable = false, columnDefinition = "DATETIME(6)")
     private Instant updatedAt;
 
-    @Column(name = "deletedAt", columnDefinition = "DATETIME(6)")
+    @Column(name = "deleted_At", columnDefinition = "DATETIME(6)")
     private Instant deletedAt;
-
-
-
 
     public CategoryJpaEntity() {
     }
