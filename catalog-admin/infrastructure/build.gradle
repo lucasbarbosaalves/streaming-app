@@ -45,6 +45,11 @@ dependencies {
     implementation('org.springframework.boot:spring-boot-starter-data-jpa')
     implementation('org.springframework.boot:spring-boot-starter-undertow')
 
+
+    //implementation 'org.springdoc:springdoc-openapi-ui:1.8.0'
+    //implementation 'org.springdoc:springdoc-openapi-webmvc-core:1.8.0'
+    // https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.9'
     testImplementation('org.flywaydb:flyway-core')
     testImplementation('org.springframework.boot:spring-boot-starter-test')
 
