@@ -3,6 +3,7 @@ package com.github.lucasbarbosaalves.catalog.application.category.update;
 import com.github.lucasbarbosaalves.catalog.IntegrationTest;
 import com.github.lucasbarbosaalves.catalog.domain.category.Category;
 import com.github.lucasbarbosaalves.catalog.domain.category.CategoryGateway;
+import com.github.lucasbarbosaalves.catalog.domain.category.NotFoundException;
 import com.github.lucasbarbosaalves.catalog.domain.exception.DomainException;
 import com.github.lucasbarbosaalves.catalog.infrastructure.category.persistence.CategoryJpaEntity;
 import com.github.lucasbarbosaalves.catalog.infrastructure.category.persistence.CategoryRepository;
@@ -188,10 +189,9 @@ public class UpdateCategoryUseCaseIT {
         );
 
         final var actualException =
-                assertThrows(DomainException.class, () -> useCase.execute(aCommand));
+                assertThrows(NotFoundException.class, () -> useCase.execute(aCommand));
 
-        assertEquals(expectedErrorCount, actualException.getErrors().size());
-        assertEquals(expectedErrorMessage, actualException.getErrors().get(0).message());
+        assertEquals(expectedErrorMessage, actualException.getMessage());
     }
 
     private void save(final Category... aCategory) {
