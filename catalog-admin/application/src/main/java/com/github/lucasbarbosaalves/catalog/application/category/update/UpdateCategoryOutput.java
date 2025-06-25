@@ -4,10 +4,13 @@ import com.github.lucasbarbosaalves.catalog.domain.category.Category;
 import com.github.lucasbarbosaalves.catalog.domain.category.CategoryID;
 
 public record UpdateCategoryOutput(
-        CategoryID id
+        String id
 ) {
+    public static UpdateCategoryOutput from(final String id) {
+        return new UpdateCategoryOutput(id);
+    }
 
     public static UpdateCategoryOutput from(final Category category) {
-        return new UpdateCategoryOutput(category.getId());
+        return new UpdateCategoryOutput(category.getId().getValue());
     }
 }
