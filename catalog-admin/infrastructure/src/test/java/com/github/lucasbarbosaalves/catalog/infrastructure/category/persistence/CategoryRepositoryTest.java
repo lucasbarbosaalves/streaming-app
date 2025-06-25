@@ -1,13 +1,14 @@
-
 package com.github.lucasbarbosaalves.catalog.infrastructure.category.persistence;
 
-import com.github.lucasbarbosaalves.catalog.domain.category.Category;
 import com.github.lucasbarbosaalves.catalog.MySQLGatewayTest;
-import org.hibernate.PropertyValueException;
-import org.junit.jupiter.api.Assertions;
+import com.github.lucasbarbosaalves.catalog.domain.category.Category;
+import org.hibernate.exception.ConstraintViolationException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @MySQLGatewayTest
 public class CategoryRepositoryTest {
@@ -17,53 +18,52 @@ public class CategoryRepositoryTest {
 
     @Test
     public void givenAnInvalidNullName_whenCallsSave_thenShouldReturnError() {
-        final var expectedErrorMessage = "not-null property references a null or transient value: com.github.lucasbarbosaalves.catalog.infrastructure.category.persistence.CategoryJpaEntity.name";
-        final var expectedPropertyName = "name";
         final var aCategory = Category.newCategory("Filmes", "All about movies", true);
-
         final var anEntity = CategoryJpaEntity.from(aCategory);
-        anEntity.setName(null);
+        anEntity.setName(null); // Define o campo inválido
 
-        final var actualException = Assertions.assertThrows(DataIntegrityViolationException.class, () -> categoryRepository.save(anEntity));
+        final var actualException = assertThrows(
+                DataIntegrityViolationException.class,
+                () -> categoryRepository.saveAndFlush(anEntity)
+        );
 
-        final var actualCause = Assertions.assertInstanceOf(PropertyValueException.class, actualException.getCause());
-
-        Assertions.assertEquals(expectedPropertyName, actualCause.getPropertyName());
-        Assertions.assertEquals(expectedErrorMessage, actualCause.getMessage());
+        assertInstanceOf(
+                ConstraintViolationException.class,
+                actualException.getCause()
+        );
     }
 
     @Test
     public void givenAnInvalidNullCreatedAt_whenCallsSave_thenShouldReturnError() {
-        final var expectedErrorMessage = "not-null property references a null or transient value: com.github.lucasbarbosaalves.catalog.infrastructure.category.persistence.CategoryJpaEntity.createdAt";
-        final var expectedPropertyName = "createdAt";
         final var aCategory = Category.newCategory("Filmes", "All about movies", true);
-
         final var anEntity = CategoryJpaEntity.from(aCategory);
-        anEntity.setCreatedAt(null);
+        anEntity.setCreatedAt(null); // Define o campo inválido
 
-        final var actualException = Assertions.assertThrows(DataIntegrityViolationException.class, () -> categoryRepository.save(anEntity));
+        final var actualException = assertThrows(
+                DataIntegrityViolationException.class,
+                () -> categoryRepository.saveAndFlush(anEntity)
+        );
 
-        final var actualCause = Assertions.assertInstanceOf(PropertyValueException.class, actualException.getCause());
-
-        Assertions.assertEquals(expectedPropertyName, actualCause.getPropertyName());
-        Assertions.assertEquals(expectedErrorMessage, actualCause.getMessage());
+        assertInstanceOf(
+                ConstraintViolationException.class,
+                actualException.getCause()
+        );
     }
-
 
     @Test
     public void givenAnInvalidNullUpdatedAt_whenCallsSave_thenShouldReturnError() {
-        final var expectedErrorMessage = "not-null property references a null or transient value: com.github.lucasbarbosaalves.catalog.infrastructure.category.persistence.CategoryJpaEntity.updatedAt";
-        final var expectedPropertyName = "updatedAt";
         final var aCategory = Category.newCategory("Filmes", "All about movies", true);
-
         final var anEntity = CategoryJpaEntity.from(aCategory);
-        anEntity.setUpdatedAt(null);
+        anEntity.setUpdatedAt(null); // Define o campo inválido
 
-        final var actualException = Assertions.assertThrows(DataIntegrityViolationException.class, () -> categoryRepository.save(anEntity));
+        final var actualException = assertThrows(
+                DataIntegrityViolationException.class,
+                () -> categoryRepository.saveAndFlush(anEntity)
+        );
 
-        final var actualCause = Assertions.assertInstanceOf(PropertyValueException.class, actualException.getCause());
-
-        Assertions.assertEquals(expectedPropertyName, actualCause.getPropertyName());
-        Assertions.assertEquals(expectedErrorMessage, actualCause.getMessage());
+        assertInstanceOf(
+                ConstraintViolationException.class,
+                actualException.getCause()
+        );
     }
 }

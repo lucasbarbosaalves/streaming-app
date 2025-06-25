@@ -1,9 +1,9 @@
 package com.github.lucasbarbosaalves.catalog.infrastructure.category;
 
+import com.github.lucasbarbosaalves.catalog.MySQLGatewayTest;
 import com.github.lucasbarbosaalves.catalog.domain.category.Category;
 import com.github.lucasbarbosaalves.catalog.domain.category.CategoryID;
 import com.github.lucasbarbosaalves.catalog.domain.category.CategorySearchQuery;
-import com.github.lucasbarbosaalves.catalog.MySQLGatewayTest;
 import com.github.lucasbarbosaalves.catalog.infrastructure.category.persistence.CategoryJpaEntity;
 import com.github.lucasbarbosaalves.catalog.infrastructure.category.persistence.CategoryRepository;
 import org.junit.jupiter.api.Test;
