@@ -4,7 +4,6 @@ import com.github.lucasbarbosaalves.catalog.IntegrationTest;
 import com.github.lucasbarbosaalves.catalog.domain.category.Category;
 import com.github.lucasbarbosaalves.catalog.domain.category.CategoryGateway;
 import com.github.lucasbarbosaalves.catalog.domain.category.NotFoundException;
-import com.github.lucasbarbosaalves.catalog.domain.exception.DomainException;
 import com.github.lucasbarbosaalves.catalog.infrastructure.category.persistence.CategoryJpaEntity;
 import com.github.lucasbarbosaalves.catalog.infrastructure.category.persistence.CategoryRepository;
 import org.junit.jupiter.api.Test;

@@ -1,6 +1,5 @@
 package com.github.lucasbarbosaalves.catalog.infrastructure.api;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.lucasbarbosaalves.catalog.ControllerTest;
 import com.github.lucasbarbosaalves.catalog.application.category.create.CreateCategoryOutput;
@@ -10,12 +9,10 @@ import com.github.lucasbarbosaalves.catalog.application.category.retrieve.get.Ca
 import com.github.lucasbarbosaalves.catalog.application.category.retrieve.get.GetCategoryByIdUseCase;
 import com.github.lucasbarbosaalves.catalog.application.category.retrieve.list.CategoryListOutput;
 import com.github.lucasbarbosaalves.catalog.application.category.retrieve.list.ListCategoriesUseCase;
-import com.github.lucasbarbosaalves.catalog.application.category.update.UpdateCategoryCommand;
 import com.github.lucasbarbosaalves.catalog.application.category.update.UpdateCategoryOutput;
 import com.github.lucasbarbosaalves.catalog.application.category.update.UpdateCategoryUseCase;
 import com.github.lucasbarbosaalves.catalog.domain.category.Category;
 import com.github.lucasbarbosaalves.catalog.domain.category.CategoryID;
-import com.github.lucasbarbosaalves.catalog.domain.category.CategorySearchQuery;
 import com.github.lucasbarbosaalves.catalog.domain.category.NotFoundException;
 import com.github.lucasbarbosaalves.catalog.domain.exception.DomainException;
 import com.github.lucasbarbosaalves.catalog.domain.pagination.Pagination;
@@ -23,16 +20,13 @@ import com.github.lucasbarbosaalves.catalog.domain.validation.Error;
 import com.github.lucasbarbosaalves.catalog.domain.validation.handler.Notification;
 import com.github.lucasbarbosaalves.catalog.infrastructure.category.dto.CreateCategoryRequest;
 import com.github.lucasbarbosaalves.catalog.infrastructure.category.dto.UpdateCategoryRequest;
-import com.github.lucasbarbosaalves.catalog.infrastructure.category.persistence.CategoryJpaEntity;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -40,8 +34,6 @@ import static io.vavr.API.Left;
 import static io.vavr.API.Right;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -298,9 +290,9 @@ public class CategoryAPITest {
                 .contentType(MediaType.APPLICATION_JSON);
 
         final var response = this.mvc.perform(request)
-                        .andDo(print());
+                .andDo(print());
 
-       //then
+        //then
 
         response.andExpect(status().isOk())
                 .andExpect(jsonPath("$.per_page", equalTo(expectedPerPage)))
@@ -316,10 +308,10 @@ public class CategoryAPITest {
 
         verify(listCategoriesUseCase, times(1)).execute(argThat(query ->
                 Objects.equals(expectedPage, query.page()) &&
-                Objects.equals(expectedPerPage, query.perPage()) &&
-                Objects.equals(expectedTerms, query.terms()) &&
-                Objects.equals(expectedSort, query.sort()) &&
-                Objects.equals(expectedDirection, query.direction())
+                        Objects.equals(expectedPerPage, query.perPage()) &&
+                        Objects.equals(expectedTerms, query.terms()) &&
+                        Objects.equals(expectedSort, query.sort()) &&
+                        Objects.equals(expectedDirection, query.direction())
         ));
     }
 

@@ -20,12 +20,12 @@ public class UpdateCategoryRequestTest {
         final var expectedIsActive = true;
 
         final var json = """
-        {
-          "name": "%s",
-          "description": "%s",
-          "is_active": %s
-        }    
-        """.formatted(expectedName, expectedDescription, expectedIsActive);
+                {
+                  "name": "%s",
+                  "description": "%s",
+                  "is_active": %s
+                }    
+                """.formatted(expectedName, expectedDescription, expectedIsActive);
 
         final var actualJson = this.json.parse(json);
 

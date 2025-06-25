@@ -83,7 +83,7 @@ public class CategoryMySQLGatewayTest {
         assertNull(actualInvalidEntity.getDescription());
         assertEquals(extIsActive, actualInvalidEntity.isActive());
 
-        final var aUpdatedCategory = category.clone(category).update(extName, extDescription, extIsActive);
+        final var aUpdatedCategory = Category.clone(category).update(extName, extDescription, extIsActive);
         final var actualCategory = categoryMySQLGateway.update(aUpdatedCategory);
 
         assertEquals(1, categoryRepository.count());

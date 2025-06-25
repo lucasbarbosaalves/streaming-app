@@ -10,6 +10,7 @@ import com.github.lucasbarbosaalves.catalog.infrastructure.category.persistence.
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.bean.override.mockito.MockitoSpyBean;
+
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -18,7 +19,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doThrow;
 
 @IntegrationTest
-public class GetCategoryByIdUseCaseIT{
+public class GetCategoryByIdUseCaseIT {
     @Autowired
     private GetCategoryByIdUseCase useCase;
 
@@ -43,14 +44,15 @@ public class GetCategoryByIdUseCaseIT{
 
         final var actualCategory = useCase.execute(expectedId.getValue());
 
-       assertEquals(expectedId, actualCategory.id());
-       assertEquals(expectedName, actualCategory.name());
-       assertEquals(expectedDescription, actualCategory.description());
-       assertEquals(expectedIsActive, actualCategory.isActive());
-       assertEquals(aCategory.getCreatedAt(), actualCategory.createdAt());
-       assertEquals(aCategory.getUpdatedAt(), actualCategory.updatedAt());
-       assertEquals(aCategory.getDeleteAt(), actualCategory.deleteAt());
+        assertEquals(expectedId, actualCategory.id());
+        assertEquals(expectedName, actualCategory.name());
+        assertEquals(expectedDescription, actualCategory.description());
+        assertEquals(expectedIsActive, actualCategory.isActive());
+        assertEquals(aCategory.getCreatedAt(), actualCategory.createdAt());
+        assertEquals(aCategory.getUpdatedAt(), actualCategory.updatedAt());
+        assertEquals(aCategory.getDeleteAt(), actualCategory.deleteAt());
     }
+
     @Test
     public void givenAInvalidId_whenCallsGetCategory_shouldReturnNotFound() {
         final var expectedErrorMessage = "Category with ID 123 was not found";

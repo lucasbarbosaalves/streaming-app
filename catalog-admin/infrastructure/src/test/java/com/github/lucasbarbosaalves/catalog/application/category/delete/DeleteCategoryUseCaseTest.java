@@ -1,13 +1,11 @@
 package com.github.lucasbarbosaalves.catalog.application.category.delete;
 
 import com.github.lucasbarbosaalves.catalog.IntegrationTest;
-import com.github.lucasbarbosaalves.catalog.application.category.retrieve.get.GetCategoryByIdUseCase;
 import com.github.lucasbarbosaalves.catalog.domain.category.Category;
 import com.github.lucasbarbosaalves.catalog.domain.category.CategoryGateway;
 import com.github.lucasbarbosaalves.catalog.domain.category.CategoryID;
 import com.github.lucasbarbosaalves.catalog.infrastructure.category.persistence.CategoryJpaEntity;
 import com.github.lucasbarbosaalves.catalog.infrastructure.category.persistence.CategoryRepository;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,8 +38,8 @@ public class DeleteCategoryUseCaseTest {
         save(aCategory);
 
         assertEquals(1, categoryRepository.count());
-        
-        assertDoesNotThrow(() ->useCase.execute(expectedId.getValue()));
+
+        assertDoesNotThrow(() -> useCase.execute(expectedId.getValue()));
 
         assertEquals(0, categoryRepository.count());
 
@@ -53,7 +51,7 @@ public class DeleteCategoryUseCaseTest {
 
         assertEquals(0, categoryRepository.count());
 
-        assertDoesNotThrow(() ->useCase.execute(expectedId.getValue()));
+        assertDoesNotThrow(() -> useCase.execute(expectedId.getValue()));
     }
 
     @Test
@@ -64,7 +62,7 @@ public class DeleteCategoryUseCaseTest {
         doThrow(new IllegalStateException("Gateway error"))
                 .when(categoryGateway).deleteById(eq(expectedId));
 
-        Assertions.assertThrows(IllegalStateException.class, () -> useCase.execute(expectedId.getValue()));
+        assertThrows(IllegalStateException.class, () -> useCase.execute(expectedId.getValue()));
 
         Mockito.verify(categoryGateway, times(1)).deleteById(eq(expectedId));
     }
