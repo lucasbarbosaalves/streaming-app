@@ -9,7 +9,6 @@ import java.util.Objects;
 
 public class Category extends AggregateRoot<CategoryID> implements Cloneable{
 
-    private CategoryID id;
     private String name;
     private String description;
     private boolean isActive;
@@ -19,7 +18,6 @@ public class Category extends AggregateRoot<CategoryID> implements Cloneable{
 
     private Category(final CategoryID id, final String name, final String description,final boolean isActive, final Instant createdAt, final Instant updatedAt, final Instant deleteAt) {
         super(id);
-        this.id = id;
         this.name = name;
         this.description = description;
         this.isActive = isActive;
@@ -113,11 +111,11 @@ public class Category extends AggregateRoot<CategoryID> implements Cloneable{
     }
 
     @Override
-    protected Category clone() {
+    public Category clone() {
         try {
             return (Category) super.clone();
         } catch (CloneNotSupportedException e) {
-            throw new RuntimeException("Failed to clone Category", e);
+            throw new AssertionError();
         }
     }
 }
