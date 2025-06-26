@@ -3,6 +3,7 @@ package com.github.lucasbarbosaalves.catalog.application.category.update;
 import com.github.lucasbarbosaalves.catalog.domain.category.Category;
 import com.github.lucasbarbosaalves.catalog.domain.category.CategoryGateway;
 import com.github.lucasbarbosaalves.catalog.domain.category.CategoryID;
+import com.github.lucasbarbosaalves.catalog.domain.category.NotFoundException;
 import com.github.lucasbarbosaalves.catalog.domain.exception.DomainException;
 import com.github.lucasbarbosaalves.catalog.domain.validation.Error;
 import com.github.lucasbarbosaalves.catalog.domain.validation.handler.Notification;
@@ -48,6 +49,6 @@ public class DefaultUpdateCategoryUseCase extends UpdateCategoryUseCase{
     }
 
     private Supplier<DomainException> notFound(final CategoryID id) {
-        return () -> DomainException.with(new Error("Category with ID %s was not found".formatted(id.getValue())));
+        return () -> NotFoundException.with(Category.class, id);
     }
 }

@@ -1,14 +1,16 @@
 package com.github.lucasbarbosaalves.catalog.application.category.retrieve.get;
 
+import com.github.lucasbarbosaalves.catalog.domain.category.Category;
 import com.github.lucasbarbosaalves.catalog.domain.category.CategoryGateway;
 import com.github.lucasbarbosaalves.catalog.domain.category.CategoryID;
+import com.github.lucasbarbosaalves.catalog.domain.category.NotFoundException;
 import com.github.lucasbarbosaalves.catalog.domain.exception.DomainException;
 import com.github.lucasbarbosaalves.catalog.domain.validation.Error;
 
 import java.util.Objects;
 import java.util.function.Supplier;
 
-public class DefaultGetCategoryByIdUseCase extends GetCategoryByIdUseCase{
+public class DefaultGetCategoryByIdUseCase extends GetCategoryByIdUseCase {
 
     private final CategoryGateway categoryGateway;
 
@@ -33,7 +35,10 @@ public class DefaultGetCategoryByIdUseCase extends GetCategoryByIdUseCase{
                 .orElseThrow(notFound(aCategoryId));
     }
 
-    private Supplier<DomainException> notFound(final CategoryID id) {
-        return () -> DomainException.with(new Error("Category with ID %s was not found".formatted(id.getValue())));
+    private Supplier<NotFoundException> notFound(final CategoryID id) {
+        return () -> NotFoundException.with(
+                Category.class,
+                id
+        );
     }
 }

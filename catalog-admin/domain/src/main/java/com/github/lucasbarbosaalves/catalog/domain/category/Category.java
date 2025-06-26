@@ -4,10 +4,11 @@ import com.github.lucasbarbosaalves.catalog.domain.AggregateRoot;
 import com.github.lucasbarbosaalves.catalog.domain.validation.ValidationHandler;
 
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.Objects;
 
 public class Category extends AggregateRoot<CategoryID> implements Cloneable{
 
-    private CategoryID id;
     private String name;
     private String description;
     private boolean isActive;
@@ -17,24 +18,35 @@ public class Category extends AggregateRoot<CategoryID> implements Cloneable{
 
     private Category(final CategoryID id, final String name, final String description,final boolean isActive, final Instant createdAt, final Instant updatedAt, final Instant deleteAt) {
         super(id);
-        this.id = id;
         this.name = name;
         this.description = description;
         this.isActive = isActive;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
+        this.createdAt = Objects.requireNonNull(createdAt, "createdAt must not be null");
+        this.updatedAt = Objects.requireNonNull(updatedAt, "updatedAt must not be null");
         this.deleteAt = deleteAt;
     }
 
     public static Category newCategory(final String name, final String description, final boolean isActive) {
         final var id = CategoryID.unique();
-        final var now = Instant.now();
+        final var now = Instant.now().truncatedTo(ChronoUnit.MICROS);
         final var deletedAt = isActive ? null : now;
         return new Category(id, name, description, isActive, now, now, deletedAt);
     }
 
     public static Category clone(final Category category) {
         return category.clone();
+    }
+
+    public static Category with(CategoryID id, String name, String description, boolean active, Instant createdAt, Instant updatedAt, Instant deletedAt) {
+        return new Category(
+                id,
+                name,
+                description,
+                active,
+                createdAt,
+                updatedAt,
+                deletedAt
+        );
     }
 
     @Override
@@ -99,11 +111,11 @@ public class Category extends AggregateRoot<CategoryID> implements Cloneable{
     }
 
     @Override
-    protected Category clone() {
+    public Category clone() {
         try {
             return (Category) super.clone();
         } catch (CloneNotSupportedException e) {
-            throw new RuntimeException("Failed to clone Category", e);
+            throw new AssertionError();
         }
     }
 }

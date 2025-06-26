@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  mysql:
+    container_name: video_admin_mysql
+    image: mysql:8.0
+    environment:
+        MYSQL_ROOT_PASSWORD: root
+        MYSQL_DATABASE: video_admin
+    security_opt:
+      - seccomp:unconfined
+    ports:
+      - "3306:3306"
+    networks:
+      - video_admin_network
+
+
+networks:
+  video_admin_network:

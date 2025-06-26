@@ -3,8 +3,6 @@ package com.github.lucasbarbosaalves.catalog.application.category.create;
 import com.github.lucasbarbosaalves.catalog.domain.category.Category;
 import com.github.lucasbarbosaalves.catalog.domain.category.CategoryGateway;
 import com.github.lucasbarbosaalves.catalog.domain.validation.handler.Notification;
-import com.github.lucasbarbosaalves.catalog.domain.validation.handler.ThrowsValidationHandler;
-import io.vavr.API;
 import io.vavr.control.Either;
 
 import java.util.Objects;
