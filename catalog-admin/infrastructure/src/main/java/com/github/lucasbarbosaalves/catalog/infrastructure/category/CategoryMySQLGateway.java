@@ -3,12 +3,11 @@ package com.github.lucasbarbosaalves.catalog.infrastructure.category;
 import com.github.lucasbarbosaalves.catalog.domain.category.Category;
 import com.github.lucasbarbosaalves.catalog.domain.category.CategoryGateway;
 import com.github.lucasbarbosaalves.catalog.domain.category.CategoryID;
-import com.github.lucasbarbosaalves.catalog.domain.category.CategorySearchQuery;
+import com.github.lucasbarbosaalves.catalog.domain.pagination.SearchQuery;
 import com.github.lucasbarbosaalves.catalog.domain.pagination.Pagination;
 import com.github.lucasbarbosaalves.catalog.infrastructure.category.persistence.CategoryJpaEntity;
 import com.github.lucasbarbosaalves.catalog.infrastructure.category.persistence.CategoryRepository;
 import com.github.lucasbarbosaalves.catalog.infrastructure.utils.SpecificationUtils;
-import jakarta.persistence.criteria.*;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -53,7 +52,7 @@ public class CategoryMySQLGateway implements CategoryGateway {
     }
 
     @Override
-    public Pagination<Category> findAll(final CategorySearchQuery query) {
+    public Pagination<Category> findAll(final SearchQuery query) {
         final var page = PageRequest.of(
                 query.page(),
                 query.perPage(),

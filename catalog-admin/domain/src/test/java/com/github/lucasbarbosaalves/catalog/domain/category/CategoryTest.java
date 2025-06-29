@@ -1,6 +1,5 @@
-package com.github.lucasbarbosaalves.catalog.domain;
+package com.github.lucasbarbosaalves.catalog.domain.category;
 
-import com.github.lucasbarbosaalves.catalog.domain.category.Category;
 import com.github.lucasbarbosaalves.catalog.domain.exception.DomainException;
 import com.github.lucasbarbosaalves.catalog.domain.validation.handler.ThrowsValidationHandler;
 import org.junit.jupiter.api.Assertions;

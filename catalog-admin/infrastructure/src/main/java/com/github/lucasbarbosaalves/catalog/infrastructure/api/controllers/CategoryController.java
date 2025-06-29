@@ -6,7 +6,7 @@ import com.github.lucasbarbosaalves.catalog.application.category.retrieve.list.L
 import com.github.lucasbarbosaalves.catalog.application.category.update.UpdateCategoryCommand;
 import com.github.lucasbarbosaalves.catalog.application.category.update.UpdateCategoryOutput;
 import com.github.lucasbarbosaalves.catalog.application.category.update.UpdateCategoryUseCase;
-import com.github.lucasbarbosaalves.catalog.domain.category.CategorySearchQuery;
+import com.github.lucasbarbosaalves.catalog.domain.pagination.SearchQuery;
 import com.github.lucasbarbosaalves.catalog.infrastructure.api.CategoryAPI;
 import com.github.lucasbarbosaalves.catalog.application.category.create.CreateCategoryCommand;
 import com.github.lucasbarbosaalves.catalog.application.category.create.CreateCategoryOutput;
@@ -66,7 +66,7 @@ public class CategoryController implements CategoryAPI {
 
     @Override
     public Pagination<CategoryListResponse> listCategories(String search, int page, int perPage, String sort, String direction) {
-        return this.listCategoriesUseCase.execute(new CategorySearchQuery(
+        return this.listCategoriesUseCase.execute(new SearchQuery(
                 page,
                 perPage,
                 search,
