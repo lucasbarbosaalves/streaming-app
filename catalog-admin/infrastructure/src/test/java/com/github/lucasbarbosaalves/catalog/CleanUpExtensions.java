@@ -4,14 +4,13 @@ import com.github.lucasbarbosaalves.catalog.infrastructure.category.persistence.
 import com.github.lucasbarbosaalves.catalog.infrastructure.genre.persistence.GenreRepository;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Collection;
 import java.util.List;
 
-class CleanUpExtensions implements BeforeEachCallback {
+public class CleanUpExtensions implements BeforeEachCallback {
 
     @Override
     public void beforeEach(ExtensionContext context) {
@@ -22,9 +21,6 @@ class CleanUpExtensions implements BeforeEachCallback {
                 applicationContext.getBean(CategoryRepository.class)
         ));
 
-        final var em = applicationContext.getBean(TestEntityManager.class);
-        em.flush();
-        em.clear();
     }
 
     private void cleanUp(final Collection<CrudRepository> repositories) {
