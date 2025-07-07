@@ -3,21 +3,21 @@ package com.github.lucasbarbosaalves.catalog.infrastructure.category;
 import com.github.lucasbarbosaalves.catalog.domain.category.Category;
 import com.github.lucasbarbosaalves.catalog.domain.category.CategoryGateway;
 import com.github.lucasbarbosaalves.catalog.domain.category.CategoryID;
-import com.github.lucasbarbosaalves.catalog.domain.pagination.SearchQuery;
 import com.github.lucasbarbosaalves.catalog.domain.pagination.Pagination;
+import com.github.lucasbarbosaalves.catalog.domain.pagination.SearchQuery;
 import com.github.lucasbarbosaalves.catalog.infrastructure.category.persistence.CategoryJpaEntity;
 import com.github.lucasbarbosaalves.catalog.infrastructure.category.persistence.CategoryRepository;
-import com.github.lucasbarbosaalves.catalog.infrastructure.utils.SpecificationUtils;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.StreamSupport;
 
 import static com.github.lucasbarbosaalves.catalog.infrastructure.utils.SpecificationUtils.like;
-import static org.springframework.data.domain.Sort.*;
+import static org.springframework.data.domain.Sort.Direction;
 
 @Service
 public class CategoryMySQLGateway implements CategoryGateway {
@@ -54,21 +54,21 @@ public class CategoryMySQLGateway implements CategoryGateway {
     }
 
     @Override
-    public Pagination<Category> findAll(final SearchQuery query) {
+    public Pagination<Category> findAll(final SearchQuery aQuery) {
         final var page = PageRequest.of(
-                query.page(),
-                query.perPage(),
-                by(Direction.fromString(query.direction()), query.sort()));
+                aQuery.page(),
+                aQuery.perPage(),
+                Sort.by(Direction.fromString(aQuery.direction()), aQuery.sort())
+        );
 
-        final var specifications = Optional.ofNullable(query.terms())
+        final var specifications = Optional.ofNullable(aQuery.terms())
                 .filter(str -> !str.isBlank())
-                .map(str -> SpecificationUtils
-                        .<CategoryJpaEntity>like("name", str)
-                        .or(like("description", str))
-                )
+                .map(this::assembleSpecification)
                 .orElse(null);
 
-        final var pageResult = this.categoryRepository.findAll(Specification.where(specifications), page);
+        final var pageResult =
+                this.categoryRepository.findAll(Specification.where(specifications), page);
+
         return new Pagination<>(
                 pageResult.getNumber(),
                 pageResult.getSize(),
@@ -78,12 +78,22 @@ public class CategoryMySQLGateway implements CategoryGateway {
     }
 
     @Override
-    public List<CategoryID> existsByIds(Iterable<CategoryID> id) {
-        // TODO: Implementar após criar camada de infra
-        return Collections.emptyList();
+    public List<CategoryID> existsByIds(final Iterable<CategoryID> categoryIDs) {
+        final var ids = StreamSupport.stream(categoryIDs.spliterator(), false)
+                .map(CategoryID::getValue)
+                .toList();
+        return this.categoryRepository.existsByIds(ids).stream()
+                .map(CategoryID::from)
+                .toList();
     }
 
     private Category save(final Category category) {
         return categoryRepository.save(CategoryJpaEntity.from(category)).toAgreggate();
+    }
+
+    private Specification<CategoryJpaEntity> assembleSpecification(final String str) {
+        final Specification<CategoryJpaEntity> nameLike = like("name", str);
+        final Specification<CategoryJpaEntity> descriptionLike = like("description", str);
+        return nameLike.or(descriptionLike);
     }
 }
