@@ -20,7 +20,7 @@ import static org.mockito.Mockito.*;
 public class CreateCastMemberUseCaseTest extends UseCaseTest {
 
     @InjectMocks
-    private DefaultCastMemberUseCase useCase;
+    private DefaultCreateCastMemberUseCase useCase;
 
     @Mock
     private CastMemberGateway castMemberGateway;

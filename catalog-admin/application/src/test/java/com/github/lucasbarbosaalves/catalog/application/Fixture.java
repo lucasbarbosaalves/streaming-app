@@ -1,7 +1,7 @@
 package com.github.lucasbarbosaalves.catalog.application;
 
-import com.github.javafaker.Faker;
 import com.github.lucasbarbosaalves.catalog.domain.castmember.CastMemberType;
+import com.github.javafaker.Faker;
 
 public final class Fixture {
 

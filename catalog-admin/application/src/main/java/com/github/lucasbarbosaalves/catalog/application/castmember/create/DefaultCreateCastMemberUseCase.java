@@ -7,11 +7,11 @@ import com.github.lucasbarbosaalves.catalog.domain.validation.handler.Notificati
 
 import java.util.Objects;
 
-public final class DefaultCastMemberUseCase extends CreateCastMemberUseCase {
+public non-sealed class DefaultCreateCastMemberUseCase extends CreateCastMemberUseCase {
 
     private final CastMemberGateway gateway;
 
-    public DefaultCastMemberUseCase(CastMemberGateway gateway) {
+    public DefaultCreateCastMemberUseCase(CastMemberGateway gateway) {
         this.gateway = Objects.requireNonNull(gateway);
     }
 

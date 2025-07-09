@@ -1,5 +1,6 @@
 package com.github.lucasbarbosaalves.catalog;
 
+import com.github.lucasbarbosaalves.catalog.infrastructure.castmember.persistence.CastMemberRepository;
 import com.github.lucasbarbosaalves.catalog.infrastructure.category.persistence.CategoryRepository;
 import com.github.lucasbarbosaalves.catalog.infrastructure.genre.persistence.GenreRepository;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
@@ -17,6 +18,7 @@ public class CleanUpExtensions implements BeforeEachCallback {
         final var applicationContext = SpringExtension.getApplicationContext(context);
 
         cleanUp(List.of(
+                applicationContext.getBean(CastMemberRepository.class),
                 applicationContext.getBean(GenreRepository.class),
                 applicationContext.getBean(CategoryRepository.class)
         ));
