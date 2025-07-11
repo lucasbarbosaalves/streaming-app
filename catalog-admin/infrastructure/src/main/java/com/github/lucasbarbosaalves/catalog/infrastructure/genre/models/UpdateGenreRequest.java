@@ -1,0 +1,20 @@
+package com.github.lucasbarbosaalves.catalog.infrastructure.genre.models;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.List;
+
+public record UpdateGenreRequest(
+        @JsonProperty("name") String name,
+        @JsonProperty("categories_id") List<String> categories,
+        @JsonProperty("is_active") Boolean active
+) {
+
+    public Boolean isActive() {
+        return this.active != null ? this.active : true;
+    }
+
+    public List<String> categories() {
+        return this.categories != null ? this.categories : List.of();
+    }
+}

@@ -1,5 +1,6 @@
 package com.github.lucasbarbosaalves.catalog.application.category.retrieve.get;
 
+import com.github.lucasbarbosaalves.catalog.application.UseCaseTest;
 import com.github.lucasbarbosaalves.catalog.domain.category.Category;
 import com.github.lucasbarbosaalves.catalog.domain.category.CategoryGateway;
 import org.junit.jupiter.api.Assertions;
@@ -11,13 +12,14 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
-@ExtendWith(MockitoExtension.class)
-public class GetCategoryByIdUseCaseTest {
+public class GetCategoryByIdUseCaseTest extends UseCaseTest {
 
     @InjectMocks
     private DefaultGetCategoryByIdUseCase useCase;
@@ -25,9 +27,9 @@ public class GetCategoryByIdUseCaseTest {
     @Mock
     private CategoryGateway categoryGateway;
 
-    @BeforeEach
-    void cleanUp() {
-        Mockito.reset(categoryGateway);
+    @Override
+    protected List<Object> getMocks() {
+        return List.of(categoryGateway);
     }
 
     @Test
@@ -46,13 +48,13 @@ public class GetCategoryByIdUseCaseTest {
 
         final var actualCategory = useCase.execute(expectedId.getValue());
 
-        Assertions.assertEquals(expectedId, actualCategory.id());
-        Assertions.assertEquals(expectedName, actualCategory.name());
-        Assertions.assertEquals(expectedDescription, actualCategory.description());
-        Assertions.assertEquals(expectedIsActive, actualCategory.isActive());
-        Assertions.assertEquals(aCategory.getCreatedAt(), actualCategory.createdAt());
-        Assertions.assertEquals(aCategory.getUpdatedAt(), actualCategory.updatedAt());
-        Assertions.assertEquals(aCategory.getDeleteAt(), actualCategory.deleteAt());
+        assertEquals(expectedId, actualCategory.id());
+        assertEquals(expectedName, actualCategory.name());
+        assertEquals(expectedDescription, actualCategory.description());
+        assertEquals(expectedIsActive, actualCategory.isActive());
+        assertEquals(aCategory.getCreatedAt(), actualCategory.createdAt());
+        assertEquals(aCategory.getUpdatedAt(), actualCategory.updatedAt());
+        assertEquals(aCategory.getDeleteAt(), actualCategory.deleteAt());
     }
 
     @Test
@@ -64,4 +66,6 @@ public class GetCategoryByIdUseCaseTest {
     public void givenAValidId_whenGatewayThrowsAnError_shouldReturnException() {
 
     }
+
+
 }

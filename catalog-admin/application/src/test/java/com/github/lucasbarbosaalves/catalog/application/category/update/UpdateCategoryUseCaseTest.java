@@ -1,6 +1,6 @@
 package com.github.lucasbarbosaalves.catalog.application.category.update;
 
-import com.github.lucasbarbosaalves.catalog.application.category.create.CreateCategoryCommand;
+import com.github.lucasbarbosaalves.catalog.application.UseCaseTest;
 import com.github.lucasbarbosaalves.catalog.domain.category.Category;
 import com.github.lucasbarbosaalves.catalog.domain.category.CategoryGateway;
 import org.junit.jupiter.api.Assertions;
@@ -11,15 +11,17 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.AdditionalAnswers.returnsFirstArg;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class UpdateCategoryUseCaseTest {
+public class UpdateCategoryUseCaseTest extends UseCaseTest {
 
     @InjectMocks
     private DefaultUpdateCategoryUseCase useCase;
@@ -32,6 +34,11 @@ public class UpdateCategoryUseCaseTest {
        3. Category inactive
        4. Error on gateway
      */
+
+    @Override
+    protected List<Object> getMocks() {
+        return List.of(gateway);
+    }
 
     @Test
     public void givenAValidCommand_whenCallsUpdateCategory_thenReturnCategoryId() {
@@ -51,11 +58,11 @@ public class UpdateCategoryUseCaseTest {
 
         final var actualOutput = useCase.execute(aCommand).get();
 
-        Assertions.assertNotNull(actualOutput);
-        Assertions.assertNotNull(actualOutput.id());
+        assertNotNull(actualOutput);
+        assertNotNull(actualOutput.id());
 
-        Mockito.verify(gateway, Mockito.times(1)).findById(Mockito.eq(expectedId));
-        Mockito.verify(gateway, Mockito.times(1)).update(Mockito.argThat(aCategoryUpdated ->
+        verify(gateway, times(1)).findById(eq(expectedId));
+        verify(gateway, times(1)).update(argThat(aCategoryUpdated ->
                 Objects.equals(expectedName, aCategoryUpdated.getName())
                 && Objects.equals(expectedDescription, aCategoryUpdated.getDescription())
                 && Objects.equals(expectedIsActive, aCategoryUpdated.isActive())
@@ -77,14 +84,14 @@ public class UpdateCategoryUseCaseTest {
 
         final var aCommand = UpdateCategoryCommand.with(expectedId.getValue(), null, "Action movies", true);
 
-        when(gateway.findById(Mockito.eq(expectedId))).thenReturn(Optional.of(Category.clone(aCategory)));
+        when(gateway.findById(eq(expectedId))).thenReturn(Optional.of(Category.clone(aCategory)));
 
         final var notification = useCase.execute(aCommand).getLeft();
 
-        Assertions.assertEquals(expectedErrorMessage, notification.firstError().message());
-        Assertions.assertEquals(expectedErrorCount, notification.getErrors().size());
+        assertEquals(expectedErrorMessage, notification.firstError().message());
+        assertEquals(expectedErrorCount, notification.getErrors().size());
 
-        Mockito.verify(gateway, Mockito.times(0)).update(Mockito.any());
+        verify(gateway, times(0)).update(any());
     }
 
     @Test
@@ -92,8 +99,8 @@ public class UpdateCategoryUseCaseTest {
         final var aCategory = Category.newCategory("Movies", "Action movies", true);
 
 
-        Assertions.assertTrue(aCategory.isActive());
-        Assertions.assertNull(aCategory.getDeleteAt());
+        assertTrue(aCategory.isActive());
+        assertNull(aCategory.getDeleteAt());
         
         final var expectedName = "Movies";
         final var expectedDescription = "Action movies";
@@ -103,7 +110,7 @@ public class UpdateCategoryUseCaseTest {
 
         final var aCommand = UpdateCategoryCommand.with(expectedId.getValue(), expectedName, expectedDescription, expectedIsActive);
 
-        when(gateway.findById(Mockito.eq(expectedId))).thenReturn(Optional.of(Category.clone(aCategory)));
+        when(gateway.findById(eq(expectedId))).thenReturn(Optional.of(Category.clone(aCategory)));
 
         when(this.gateway.update(any()))
                 .thenAnswer(returnsFirstArg());
@@ -111,10 +118,10 @@ public class UpdateCategoryUseCaseTest {
         final var actualOutput = useCase.execute(aCommand).get();
 
 
-        Assertions.assertNotNull(actualOutput);
-        Assertions.assertNotNull(actualOutput.id());
+        assertNotNull(actualOutput);
+        assertNotNull(actualOutput.id());
 
-        verify(gateway, times(1)).findById(Mockito.eq(expectedId));
+        verify(gateway, times(1)).findById(eq(expectedId));
 
         verify(gateway, times(1)).update(argThat(updatedCategory ->
                 Objects.equals(updatedCategory.getName(), expectedName) &&
@@ -126,5 +133,6 @@ public class UpdateCategoryUseCaseTest {
                         Objects.nonNull(updatedCategory.getDeleteAt())
         ));
     }
+
 
 }

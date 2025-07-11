@@ -1,23 +1,23 @@
 package com.github.lucasbarbosaalves.catalog.application.category.retrieve.list;
 
+import com.github.lucasbarbosaalves.catalog.application.UseCaseTest;
 import com.github.lucasbarbosaalves.catalog.domain.category.Category;
 import com.github.lucasbarbosaalves.catalog.domain.category.CategoryGateway;
-import com.github.lucasbarbosaalves.catalog.domain.category.CategorySearchQuery;
 import com.github.lucasbarbosaalves.catalog.domain.pagination.Pagination;
+import com.github.lucasbarbosaalves.catalog.domain.pagination.SearchQuery;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.eq;
+import static org.mockito.Mockito.when;
 
-@ExtendWith(MockitoExtension.class)
-public class ListCategoriesUseCaseTest {
+public class ListCategoriesUseCaseTest extends UseCaseTest {
 
     @InjectMocks
     private DefaultListCategoriesUseCase defaultListCategoriesUseCase;
@@ -25,9 +25,9 @@ public class ListCategoriesUseCaseTest {
     @Mock
     private CategoryGateway categoryGateway;
 
-    @BeforeEach
-    void cleanUp() {
-        reset(categoryGateway);
+    @Override
+    protected List<Object> getMocks() {
+        return List.of(categoryGateway);
     }
 
     @Test
@@ -45,7 +45,7 @@ public class ListCategoriesUseCaseTest {
         final var expectedDirection = "asc";
 
 
-        CategorySearchQuery query = new CategorySearchQuery(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirection);
+        SearchQuery query = new SearchQuery(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirection);
 
                                                                                   ;
 
@@ -64,7 +64,7 @@ public class ListCategoriesUseCaseTest {
 
         final var actualResult = defaultListCategoriesUseCase.execute(query);
 
-        Assertions.assertEquals(expectedItemsCount, actualResult.items().size());
+        assertEquals(expectedItemsCount, actualResult.items().size());
 
     }
 
@@ -79,7 +79,7 @@ public class ListCategoriesUseCaseTest {
         final var expectedDirection = "asc";
 
         final var aQuery =
-                new CategorySearchQuery(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirection);
+                new SearchQuery(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirection);
 
         final var expectedPagination =
                 new Pagination<>(expectedPage, expectedPerPage, categories.size(), categories);
@@ -92,11 +92,11 @@ public class ListCategoriesUseCaseTest {
 
         final var actualResult = defaultListCategoriesUseCase.execute(aQuery);
 
-        Assertions.assertEquals(expectedItemsCount, actualResult.items().size());
-        Assertions.assertEquals(expectedResult, actualResult);
-        Assertions.assertEquals(expectedPage, actualResult.currentPage());
-        Assertions.assertEquals(expectedPerPage, actualResult.perPage());
-        Assertions.assertEquals(categories.size(), actualResult.total());
+        assertEquals(expectedItemsCount, actualResult.items().size());
+        assertEquals(expectedResult, actualResult);
+        assertEquals(expectedPage, actualResult.currentPage());
+        assertEquals(expectedPerPage, actualResult.perPage());
+        assertEquals(categories.size(), actualResult.total());
     }
 
     @Test
@@ -109,14 +109,16 @@ public class ListCategoriesUseCaseTest {
         final var expectedErrorMessage = "Gateway error";
 
         final var aQuery =
-                new CategorySearchQuery(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirection);
+                new SearchQuery(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirection);
 
         when(categoryGateway.findAll(eq(aQuery)))
                 .thenThrow(new IllegalStateException(expectedErrorMessage));
 
         final var actualException =
-                Assertions.assertThrows(IllegalStateException.class, () -> defaultListCategoriesUseCase.execute(aQuery));
+                assertThrows(IllegalStateException.class, () -> defaultListCategoriesUseCase.execute(aQuery));
 
         Assertions.assertEquals(expectedErrorMessage, actualException.getMessage());
     }
+
+
 }

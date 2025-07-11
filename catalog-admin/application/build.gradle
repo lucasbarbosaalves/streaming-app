@@ -17,7 +17,9 @@ dependencies {
 
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
-    
+
+    testImplementation('com.github.javafaker:javafaker:1.0.2')
+
     // https://mvnrepository.com/artifact/org.mockito/mockito-junit-jupiter
     testImplementation 'org.mockito:mockito-junit-jupiter:4.5.1'
 

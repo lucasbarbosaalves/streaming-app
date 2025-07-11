@@ -1,7 +1,7 @@
 package com.github.lucasbarbosaalves.catalog.application.category.retrieve.list;
 
 import com.github.lucasbarbosaalves.catalog.domain.category.CategoryGateway;
-import com.github.lucasbarbosaalves.catalog.domain.category.CategorySearchQuery;
+import com.github.lucasbarbosaalves.catalog.domain.pagination.SearchQuery;
 import com.github.lucasbarbosaalves.catalog.domain.pagination.Pagination;
 
 import java.util.Objects;
@@ -15,7 +15,7 @@ public class DefaultListCategoriesUseCase extends ListCategoriesUseCase {
     }
 
     @Override
-    public Pagination<CategoryListOutput> execute(final CategorySearchQuery query) {
+    public Pagination<CategoryListOutput> execute(final SearchQuery query) {
         return this.categoryGateway.findAll(query)
                 .map(CategoryListOutput::from);
     }
