@@ -5,42 +5,41 @@ import jakarta.persistence.Embeddable;
 
 import java.io.Serializable;
 import java.util.Objects;
-import java.util.UUID;
 
 @Embeddable
 public class VideoCategoryID implements Serializable {
 
     @Column(name = "video_id", nullable = false)
-    private UUID videoId;
+    private String videoId;
 
     @Column(name = "category_id", nullable = false)
-    private UUID categoryId;
+    private String categoryId;
 
     public VideoCategoryID() {
     }
 
-    private VideoCategoryID(UUID videoId, UUID categoryId) {
+    private VideoCategoryID(String videoId, String categoryId) {
         this.videoId = videoId;
         this.categoryId = categoryId;
     }
 
-    public static VideoCategoryID from(UUID videoId, UUID categoryId) {
+    public static VideoCategoryID from(String videoId, String categoryId) {
         return new VideoCategoryID(videoId, categoryId);
     }
 
-    public UUID getVideoId() {
+    public String getVideoId() {
         return videoId;
     }
 
-    public void setVideoId(UUID videoId) {
+    public void setVideoId(String videoId) {
         this.videoId = videoId;
     }
 
-    public UUID getCategoryId() {
+    public String getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(UUID categoryId) {
+    public void setCategoryId(String categoryId) {
         this.categoryId = categoryId;
     }
 

@@ -1,6 +1,7 @@
 package com.github.lucasbarbosaalves.catalog.domain.video;
 
 import com.github.lucasbarbosaalves.catalog.domain.Identifier;
+import com.github.lucasbarbosaalves.catalog.domain.utils.IdUtils;
 
 import java.util.Objects;
 import java.util.UUID;
@@ -14,7 +15,7 @@ public class VideoID extends Identifier {
     }
 
     public static VideoID unique() {
-        return VideoID.from(UUID.randomUUID());
+        return VideoID.from(IdUtils.uuid());
     }
 
     public static VideoID from(final String value) {

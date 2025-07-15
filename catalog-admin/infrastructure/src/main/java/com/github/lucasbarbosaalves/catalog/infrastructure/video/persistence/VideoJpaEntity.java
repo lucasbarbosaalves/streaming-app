@@ -14,13 +14,13 @@ import java.time.Year;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
-import java.util.UUID;
 
 @Entity(name = "Video")
 @Table(name = "videos")
 public class VideoJpaEntity {
 
     @Id
+    @Column(name = "id", nullable = false)
     private String id;
 
     @Column(name = "title", nullable = false)
