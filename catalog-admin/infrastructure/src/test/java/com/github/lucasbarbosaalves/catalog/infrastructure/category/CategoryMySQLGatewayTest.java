@@ -333,7 +333,7 @@ public class CategoryMySQLGatewayTest {
         assertEquals(expectedPerPage, actualResult.perPage());
         assertEquals(expectedTotal, actualResult.total());
         assertEquals(expectedPerPage, actualResult.items().size());
-        assertEquals(filmes.getId(), actualResult.items().get(0).getId());
+        assertEquals(filmes.getId().getValue(), actualResult.items().getFirst().getId().getValue());
     }
 
 

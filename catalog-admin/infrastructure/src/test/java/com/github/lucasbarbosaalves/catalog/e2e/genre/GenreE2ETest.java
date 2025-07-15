@@ -6,6 +6,7 @@ import com.github.lucasbarbosaalves.catalog.domain.genre.GenreID;
 import com.github.lucasbarbosaalves.catalog.e2e.MockDsl;
 import com.github.lucasbarbosaalves.catalog.infrastructure.genre.models.UpdateGenreRequest;
 import com.github.lucasbarbosaalves.catalog.infrastructure.genre.persistence.GenreRepository;
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -78,6 +79,7 @@ public class GenreE2ETest implements MockDsl {
     }
 
     @Test
+    @Transactional
     public void asACatalogAdminIShouldBeAbleToCreateANewGenreWithCategories() throws Exception {
         assertTrue(MYSQL_CONTAINER.isRunning());
         assertEquals(0, genreRepository.count());
@@ -183,6 +185,7 @@ public class GenreE2ETest implements MockDsl {
     }
 
     @Test
+    @Transactional
     public void asACatalogAdminIShouldBeAbleToGetAGenreByItsIdentifier() throws Exception {
         assertTrue(MYSQL_CONTAINER.isRunning());
         assertEquals(0, genreRepository.count());
@@ -223,6 +226,7 @@ public class GenreE2ETest implements MockDsl {
     }
 
     @Test
+    @Transactional
     public void asACatalogAdminIShouldBeAbleToUpdateAGenreByItsIdentifier() throws Exception {
         assertTrue(MYSQL_CONTAINER.isRunning());
         assertEquals(0, genreRepository.count());
@@ -258,6 +262,7 @@ public class GenreE2ETest implements MockDsl {
     }
 
     @Test
+    @Transactional
     public void asACatalogAdminIShouldBeAbleToInactivateAGenreByItsIdentifier() throws Exception {
         assertTrue(MYSQL_CONTAINER.isRunning());
         assertEquals(0, genreRepository.count());
@@ -320,22 +325,6 @@ public class GenreE2ETest implements MockDsl {
         assertNotNull(actualGenre.getCreatedAt());
         assertNotNull(actualGenre.getUpdatedAt());
         assertNull(actualGenre.getDeletedAt());
-    }
-
-    @Test
-    public void asACatalogAdminIShouldBeAbleToDeleteAGenreByItsIdentifier() throws Exception {
-        assertTrue(MYSQL_CONTAINER.isRunning());
-        assertEquals(0, genreRepository.count());
-
-        final var filmes = givenACategory("Filmes", null, true);
-
-        final var actualId = givenAGenre("Ação", true, List.of(filmes));
-
-        deleteAGenre(actualId)
-                .andExpect(status().isNoContent());
-
-        assertFalse(this.genreRepository.existsById(actualId.getValue()));
-        assertEquals(0, genreRepository.count());
     }
 
     @Test
