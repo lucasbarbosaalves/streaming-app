@@ -1,8 +1,19 @@
 package com.github.lucasbarbosaalves.catalog.domain.video;
 
-public record VideoSearchQuery(int page, int perPage, String terms, String sort, String direction) {
+import com.github.lucasbarbosaalves.catalog.domain.castmember.CastMemberID;
+import com.github.lucasbarbosaalves.catalog.domain.category.CategoryID;
+import com.github.lucasbarbosaalves.catalog.domain.genre.GenreID;
 
-    public static VideoSearchQuery with(final int page, final int perPage, final String terms, final String sort, final String direction) {
-        return new VideoSearchQuery(page, perPage, terms, sort, direction);
-    }
+import java.util.Set;
+
+public record VideoSearchQuery(
+        int page,
+        int perPage,
+        String terms,
+        String sort,
+        String direction,
+        Set<CastMemberID> castMembers,
+        Set<GenreID> genres,
+        Set<CategoryID> categories
+) {
 }
