@@ -1,7 +1,7 @@
 package com.github.lucasbarbosaalves.catalog.application.video.retrieve.get;
 
-import com.github.lucasbarbosaalves.catalog.application.Fixture;
 import com.github.lucasbarbosaalves.catalog.application.UseCaseTest;
+import com.github.lucasbarbosaalves.catalog.domain.Fixture;
 import com.github.lucasbarbosaalves.catalog.domain.category.NotFoundException;
 import com.github.lucasbarbosaalves.catalog.domain.video.*;
 import org.junit.jupiter.api.Assertions;

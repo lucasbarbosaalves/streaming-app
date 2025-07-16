@@ -1,4 +1,4 @@
-package com.github.lucasbarbosaalves.catalog.application;
+package com.github.lucasbarbosaalves.catalog.domain;
 
 import com.github.javafaker.Faker;
 import com.github.lucasbarbosaalves.catalog.domain.castmember.CastMember;
@@ -10,7 +10,6 @@ import com.github.lucasbarbosaalves.catalog.domain.video.Resource;
 import com.github.lucasbarbosaalves.catalog.domain.video.Video;
 
 import java.time.Year;
-import java.util.Arrays;
 import java.util.Set;
 
 import static io.vavr.API.*;

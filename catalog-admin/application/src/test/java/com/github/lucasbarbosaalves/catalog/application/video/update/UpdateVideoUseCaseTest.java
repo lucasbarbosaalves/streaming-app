@@ -1,7 +1,7 @@
 package com.github.lucasbarbosaalves.catalog.application.video.update;
 
-import com.github.lucasbarbosaalves.catalog.application.Fixture;
 import com.github.lucasbarbosaalves.catalog.application.UseCaseTest;
+import com.github.lucasbarbosaalves.catalog.domain.Fixture;
 import com.github.lucasbarbosaalves.catalog.domain.castmember.CastMemberGateway;
 import com.github.lucasbarbosaalves.catalog.domain.castmember.CastMemberID;
 import com.github.lucasbarbosaalves.catalog.domain.category.CategoryGateway;
@@ -19,7 +19,7 @@ import org.mockito.Mock;
 import java.time.Year;
 import java.util.*;
 
-import static com.github.lucasbarbosaalves.catalog.application.Fixture.CastMembers.lucas;
+import static com.github.lucasbarbosaalves.catalog.domain.Fixture.CastMembers.lucas;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.AdditionalAnswers.returnsFirstArg;
 import static org.mockito.ArgumentMatchers.*;

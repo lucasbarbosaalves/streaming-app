@@ -1,8 +1,8 @@
 package com.github.lucasbarbosaalves.catalog.application.video.retrieve.list;
 
-import com.github.lucasbarbosaalves.catalog.application.Fixture;
 import com.github.lucasbarbosaalves.catalog.application.UseCaseTest;
 import com.github.lucasbarbosaalves.catalog.application.genre.retrieve.list.GenreListOutput;
+import com.github.lucasbarbosaalves.catalog.domain.Fixture;
 import com.github.lucasbarbosaalves.catalog.domain.pagination.Pagination;
 import com.github.lucasbarbosaalves.catalog.domain.video.VideoGateway;
 import com.github.lucasbarbosaalves.catalog.domain.video.VideoPreview;

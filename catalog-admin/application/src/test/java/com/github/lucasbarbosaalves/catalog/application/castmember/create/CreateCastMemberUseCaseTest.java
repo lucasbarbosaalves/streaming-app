@@ -1,7 +1,7 @@
 package com.github.lucasbarbosaalves.catalog.application.castmember.create;
 
-import com.github.lucasbarbosaalves.catalog.application.Fixture;
 import com.github.lucasbarbosaalves.catalog.application.UseCaseTest;
+import com.github.lucasbarbosaalves.catalog.domain.Fixture;
 import com.github.lucasbarbosaalves.catalog.domain.castmember.CastMemberGateway;
 import com.github.lucasbarbosaalves.catalog.domain.exception.NotificationException;
 import org.junit.jupiter.api.Test;

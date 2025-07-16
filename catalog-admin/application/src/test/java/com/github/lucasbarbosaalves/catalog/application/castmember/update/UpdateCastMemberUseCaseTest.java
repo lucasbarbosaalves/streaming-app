@@ -1,7 +1,7 @@
 package com.github.lucasbarbosaalves.catalog.application.castmember.update;
 
-import com.github.lucasbarbosaalves.catalog.application.Fixture;
 import com.github.lucasbarbosaalves.catalog.application.UseCaseTest;
+import com.github.lucasbarbosaalves.catalog.domain.Fixture;
 import com.github.lucasbarbosaalves.catalog.domain.castmember.CastMember;
 import com.github.lucasbarbosaalves.catalog.domain.castmember.CastMemberGateway;
 import com.github.lucasbarbosaalves.catalog.domain.castmember.CastMemberID;
