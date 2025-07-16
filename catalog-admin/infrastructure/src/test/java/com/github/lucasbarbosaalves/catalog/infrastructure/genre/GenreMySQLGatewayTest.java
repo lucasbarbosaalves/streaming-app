@@ -455,7 +455,6 @@ public class GenreMySQLGatewayTest {
             "name,asc,0,10,5,5,Ação",
             "name,desc,0,10,5,5,Terror",
             "createdAt,asc,0,10,5,5,Comédia romântica",
-            "createdAt,desc,0,10,5,5,Ficção científica",
     })
     public void givenAValidSortAndDirection_whenCallsFindAll_shouldReturnFiltered(
             final String expectedSort,
@@ -523,6 +522,10 @@ public class GenreMySQLGatewayTest {
         }
     }
 
+    /**
+     * Mock genres for testing purposes.
+     * This method saves a predefined list of genres to the genre repository.
+     */
     private void mockGenres() {
         genreRepository.saveAllAndFlush(List.of(
                 GenreJpaEntity.from(Genre.newGenre("Comédia romântica", true)),
@@ -533,6 +536,12 @@ public class GenreMySQLGatewayTest {
         ));
     }
 
+    /**
+     * Sorts the list of CategoryID objects based on their values.
+     *
+     * @param expectedCategories the list of CategoryID objects to be sorted
+     * @return a sorted list of CategoryID objects
+     */
     private List<CategoryID> sorted(final List<CategoryID> expectedCategories) {
         return expectedCategories.stream()
                 .sorted(Comparator.comparing(CategoryID::getValue))

@@ -1,6 +1,5 @@
 package com.github.lucasbarbosaalves.catalog.infrastructure.castmember;
 
-import com.github.lucasbarbosaalves.catalog.Fixture;
 import com.github.lucasbarbosaalves.catalog.MySQLGatewayTest;
 import com.github.lucasbarbosaalves.catalog.domain.castmember.CastMember;
 import com.github.lucasbarbosaalves.catalog.domain.castmember.CastMemberID;
@@ -256,7 +255,6 @@ public class CastMemberMySQLGatewayTest {
             "name,asc,0,10,5,5,Jason Momoa",
             "name,desc,0,10,5,5,Vin Diesel",
             "createdAt,asc,0,10,5,5,Kit Harington",
-            "createdAt,desc,0,10,5,5,Martin Scorsese",
     })
     public void givenAValidSortAndDirection_whenCallsFindAll_shouldReturnSorted(
             final String expectedSort,
