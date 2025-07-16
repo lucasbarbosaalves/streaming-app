@@ -48,7 +48,12 @@ dependencies {
     implementation('com.fasterxml.jackson.module:jackson-module-afterburner:2.18.0')
 
 
-    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.9'
+    implementation('org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.9')
+
+    // https://mvnrepository.com/artifact/com.google.cloud/google-cloud-storage
+    implementation('com.google.cloud:google-cloud-storage:2.53.3')
+    // https://mvnrepository.com/artifact/com.google.guava/guava
+    implementation('com.google.guava:guava:33.4.8-jre')
 
     testImplementation('org.flywaydb:flyway-core')
     testImplementation('org.springframework.boot:spring-boot-starter-test')
