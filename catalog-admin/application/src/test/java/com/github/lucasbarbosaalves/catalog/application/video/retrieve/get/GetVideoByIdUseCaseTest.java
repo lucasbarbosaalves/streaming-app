@@ -48,11 +48,11 @@ public class GetVideoByIdUseCaseTest extends UseCaseTest {
                 Fixture.CastMembers.lucas().getId(),
                 Fixture.CastMembers.gabriel().getId()
         );
-        final var expectedVideo = audioVideo(Resource.Type.VIDEO);
-        final var expectedTrailer = audioVideo(Resource.Type.TRAILER);
-        final var expectedBanner = image(Resource.Type.BANNER);
-        final var expectedThumb = image(Resource.Type.THUMBNAIL);
-        final var expectedThumbHalf = image(Resource.Type.THUMBNAIL_HALF);
+        final var expectedVideo = audioVideo(VideoMediaType.VIDEO);
+        final var expectedTrailer = audioVideo(VideoMediaType.TRAILER);
+        final var expectedBanner = image(VideoMediaType.BANNER);
+        final var expectedThumb = image(VideoMediaType.THUMBNAIL);
+        final var expectedThumbHalf = image(VideoMediaType.THUMBNAIL_HALF);
 
         final var aVideo = Video.newVideo(
                         expectedTitle,
@@ -121,7 +121,7 @@ public class GetVideoByIdUseCaseTest extends UseCaseTest {
         assertEquals(expectedErrorMessage, actualError.getMessage());
     }
 
-    private AudioVideoMedia audioVideo(final Resource.Type type) {
+    private AudioVideoMedia audioVideo(final VideoMediaType type) {
         final var checksum = UUID.randomUUID().toString();
         return AudioVideoMedia.with(
                 checksum,
@@ -132,7 +132,7 @@ public class GetVideoByIdUseCaseTest extends UseCaseTest {
         );
     }
 
-    private ImageMedia image(final Resource.Type type) {
+    private ImageMedia image(final VideoMediaType type) {
         final var checksum = UUID.randomUUID().toString();
         return ImageMedia.with(
                 checksum,

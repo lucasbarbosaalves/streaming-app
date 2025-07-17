@@ -5,9 +5,10 @@ import com.github.lucasbarbosaalves.catalog.domain.castmember.CastMember;
 import com.github.lucasbarbosaalves.catalog.domain.castmember.CastMemberType;
 import com.github.lucasbarbosaalves.catalog.domain.category.Category;
 import com.github.lucasbarbosaalves.catalog.domain.genre.Genre;
+import com.github.lucasbarbosaalves.catalog.domain.resource.Resource;
 import com.github.lucasbarbosaalves.catalog.domain.video.Rating;
-import com.github.lucasbarbosaalves.catalog.domain.video.Resource;
 import com.github.lucasbarbosaalves.catalog.domain.video.Video;
+import com.github.lucasbarbosaalves.catalog.domain.video.VideoMediaType;
 
 import java.time.Year;
 import java.util.Set;
@@ -122,15 +123,15 @@ public final class Fixture {
             return FAKER.options().option(Rating.values());
         }
 
-        public static Resource resource(final Resource.Type type) {
+        public static Resource resource(final VideoMediaType type) {
             final String contentType = Match(type).of(
-                    Case($(List(Resource.Type.VIDEO, Resource.Type.TRAILER)::contains), "video/mp4"),
+                    Case($(List(VideoMediaType.VIDEO, VideoMediaType.TRAILER)::contains), "video/mp4"),
                     Case($(), "image/jpg")
             );
 
             final byte[] content = "Conteudo".getBytes();
 
-            return Resource.with(content, contentType, type.name().toLowerCase(), type);
+            return Resource.with("checksum", content, contentType, FAKER.file().fileName());
         }
 
 

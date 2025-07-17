@@ -1,6 +1,6 @@
 package com.github.lucasbarbosaalves.catalog.application.video.create;
 
-import com.github.lucasbarbosaalves.catalog.domain.video.Resource;
+import com.github.lucasbarbosaalves.catalog.domain.resource.Resource;
 
 import java.util.Optional;
 import java.util.Set;

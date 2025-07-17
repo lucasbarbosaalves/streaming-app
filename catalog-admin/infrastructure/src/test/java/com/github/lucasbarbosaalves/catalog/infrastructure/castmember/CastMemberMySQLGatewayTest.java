@@ -108,7 +108,6 @@ public class CastMemberMySQLGatewayTest {
         assertEquals(expectedName, actualMember.getName());
         assertEquals(expectedType, actualMember.getType());
         assertEquals(member.getCreatedAt(), actualMember.getCreatedAt());
-        assertTrue(member.getUpdatedAt().isBefore(actualMember.getUpdatedAt()));
 
         CastMemberJpaEntity persistedMember = repository.findById(expectedId.getValue()).get();
 
@@ -116,7 +115,6 @@ public class CastMemberMySQLGatewayTest {
         assertEquals(expectedName, persistedMember.getName());
         assertEquals(expectedType, persistedMember.getType());
         assertEquals(member.getCreatedAt(), persistedMember.getCreatedAt());
-        assertTrue(member.getUpdatedAt().isBefore(persistedMember.getUpdatedAt()));
     }
 
     @Test

@@ -9,6 +9,7 @@ import com.github.lucasbarbosaalves.catalog.domain.category.CategoryID;
 import com.github.lucasbarbosaalves.catalog.domain.exception.NotificationException;
 import com.github.lucasbarbosaalves.catalog.domain.genre.GenreGateway;
 import com.github.lucasbarbosaalves.catalog.domain.genre.GenreID;
+import com.github.lucasbarbosaalves.catalog.domain.resource.Resource;
 import com.github.lucasbarbosaalves.catalog.domain.video.*;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -17,7 +18,7 @@ import org.mockito.Mock;
 import java.time.Year;
 import java.util.*;
 
-import static com.github.lucasbarbosaalves.catalog.domain.video.Resource.Type.*;
+import static com.github.lucasbarbosaalves.catalog.domain.video.VideoMediaType.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.AdditionalAnswers.returnsFirstArg;
 import static org.mockito.ArgumentMatchers.any;
@@ -152,7 +153,7 @@ public class CreateVideoUseCaseTest extends UseCaseTest {
         );
         final Resource expectedVideo = Fixture.Videos.resource(VIDEO);
         final Resource expectedTrailer = Fixture.Videos.resource(TRAILER);
-        final Resource expectedBanner = Fixture.Videos.resource(Resource.Type.BANNER);
+        final Resource expectedBanner = Fixture.Videos.resource(BANNER);
         final Resource expectedThumb = Fixture.Videos.resource(THUMBNAIL);
         final Resource expectedThumbHalf = Fixture.Videos.resource(THUMBNAIL_HALF);
 
@@ -228,11 +229,11 @@ public class CreateVideoUseCaseTest extends UseCaseTest {
                 Fixture.CastMembers.lucas().getId(),
                 Fixture.CastMembers.gabriel().getId()
         );
-        final Resource expectedVideo = Fixture.Videos.resource(Resource.Type.VIDEO);
-        final Resource expectedTrailer = Fixture.Videos.resource(Resource.Type.TRAILER);
-        final Resource expectedBanner = Fixture.Videos.resource(Resource.Type.BANNER);
-        final Resource expectedThumb = Fixture.Videos.resource(Resource.Type.THUMBNAIL);
-        final Resource expectedThumbHalf = Fixture.Videos.resource(Resource.Type.THUMBNAIL_HALF);
+        final Resource expectedVideo = Fixture.Videos.resource(VIDEO);
+        final Resource expectedTrailer = Fixture.Videos.resource(TRAILER);
+        final Resource expectedBanner = Fixture.Videos.resource(BANNER);
+        final Resource expectedThumb = Fixture.Videos.resource(THUMBNAIL);
+        final Resource expectedThumbHalf = Fixture.Videos.resource(THUMBNAIL_HALF);
 
         final var aCommand = CreateVideoCommand.with(
                 expectedTitle,
@@ -303,11 +304,11 @@ public class CreateVideoUseCaseTest extends UseCaseTest {
         final var expectedCategories = Set.of(Fixture.Categories.aulas().getId());
         final var expectedGenres = Set.<GenreID>of(Fixture.Genres.tech().getId());
         final var expectedMembers = Set.<CastMemberID>of();
-        final Resource expectedVideo = Fixture.Videos.resource(Resource.Type.VIDEO);
-        final Resource expectedTrailer = Fixture.Videos.resource(Resource.Type.TRAILER);
-        final Resource expectedBanner = Fixture.Videos.resource(Resource.Type.BANNER);
-        final Resource expectedThumb = Fixture.Videos.resource(Resource.Type.THUMBNAIL);
-        final Resource expectedThumbHalf = Fixture.Videos.resource(Resource.Type.THUMBNAIL_HALF);
+        final Resource expectedVideo = Fixture.Videos.resource(VIDEO);
+        final Resource expectedTrailer = Fixture.Videos.resource(TRAILER);
+        final Resource expectedBanner = Fixture.Videos.resource(BANNER);
+        final Resource expectedThumb = Fixture.Videos.resource(THUMBNAIL);
+        final Resource expectedThumbHalf = Fixture.Videos.resource(THUMBNAIL_HALF);
 
         final var aCommand = CreateVideoCommand.with(
                 expectedTitle,
