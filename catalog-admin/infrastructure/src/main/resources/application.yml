@@ -1,3 +1,20 @@
+google:
+  cloud:
+    credentials: ${GOOGLE_CLOUD_CREDENTIALS}
+    project-id: ${GOOGLE_CLOUD_PROJECT_ID}
+    storage:
+      video-catalog:
+        bucket: lba_video_catalog
+        connectTimeout: 1000
+        readTimeout: 2000
+        retryDelay: 50
+        retryMaxDelay: 2
+        retryMaxAttempts: 50
+        retryMultiplier: 1.0
+logging:
+  level:
+    root: info
+    com.github.lucasbarbosaalves.catalog: debug
 server:
   port: 8080
   compression:
