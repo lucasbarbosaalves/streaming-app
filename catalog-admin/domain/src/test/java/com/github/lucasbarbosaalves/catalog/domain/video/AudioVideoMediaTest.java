@@ -1,5 +1,6 @@
 package com.github.lucasbarbosaalves.catalog.domain.video;
 
+import com.github.lucasbarbosaalves.catalog.domain.utils.IdUtils;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -7,53 +8,71 @@ import static org.junit.jupiter.api.Assertions.*;
 class AudioVideoMediaTest {
 
     @Test
-    public void givenAValidParams_whenCallsNewAudioVideo_shouldReturnInstance() {
+    public void givenValidParams_whenCallsNewAudioVideo_ShouldReturnInstance() {
         // given
-        final var expectedChecksum = "checksum";
-        final var expectedName = "banner.png";
-        final var expectedRawLocation = "/images/banner.png";
-        final var expectedEncodedLocation = "/images/banner.png";
+        final var expectedId = IdUtils.uuid();
+        final var expectedChecksum = "abc";
+        final var expectedName = "Banner.png";
+        final var expectedRawLocation = "/images/ac";
+        final var expectedEncodedLocation = "/images/ac-encoded";
         final var expectedStatus = MediaStatus.PENDING;
 
         // when
-        final var actual = AudioVideoMedia.with(expectedChecksum, expectedName, expectedRawLocation, expectedEncodedLocation, expectedStatus);
-
-        assertNotNull(actual);
-        assertEquals(expectedChecksum, actual.checksum());
-        assertEquals(expectedName, actual.name());
-        assertEquals(expectedRawLocation, actual.rawLocation());
-        assertEquals(expectedEncodedLocation, actual.encodedLocation());
-        assertEquals(expectedStatus, actual.status());
-
-    }
-
-    @Test
-    public void givenSamesValues_whenCallsEquals_shouldReturnTrue() {
-        // given
-        final var expectedChecksum = "checksum";
-        final var expectedRawLocation = "/images/banner.png";
-        final var expectedEncodedLocation = "/images/banner.png";
-        final var expectedStatus = MediaStatus.PENDING;
-
-        final var audioVideo1 = AudioVideoMedia.with(expectedChecksum, "AudioVideo1", expectedRawLocation, expectedEncodedLocation, expectedStatus);
-        final var audioVideo2 = AudioVideoMedia.with(expectedChecksum, "AudioVideo2", expectedRawLocation, expectedEncodedLocation, expectedStatus);
+        final var actualVideo =
+                AudioVideoMedia.with(expectedId, expectedChecksum, expectedName, expectedRawLocation, expectedEncodedLocation, expectedStatus);
 
         // then
-        assertEquals(audioVideo1, audioVideo2);
-        assertNotSame(audioVideo1, audioVideo2);
+        assertNotNull(actualVideo);
+        assertEquals(expectedId, actualVideo.id());
+        assertEquals(expectedChecksum, actualVideo.checksum());
+        assertEquals(expectedName, actualVideo.name());
+        assertEquals(expectedRawLocation, actualVideo.rawLocation());
+        assertEquals(expectedEncodedLocation, actualVideo.encodedLocation());
+        assertEquals(expectedStatus, actualVideo.status());
     }
 
     @Test
-    public void givenInvalidParams_whenCallsNewImage_shouldReturnError() {
-        assertThrows(NullPointerException.class, () -> AudioVideoMedia.with(null, "banner.png", "/images/banner.png", "/images/banner.png", MediaStatus.PENDING));
-        assertThrows(NullPointerException.class, () -> AudioVideoMedia.with("checksum", null, "/images/banner.png", "/images/banner.png", MediaStatus.PENDING));
-        assertThrows(NullPointerException.class, () -> AudioVideoMedia.with("checksum", "banner.png", null, "/images/banner.png", MediaStatus.PENDING));
-        assertThrows(NullPointerException.class, () -> AudioVideoMedia.with("checksum", "banner.png", "/images/banner.png", null, MediaStatus.PENDING));
-        assertThrows(NullPointerException.class, () -> AudioVideoMedia.with("checksum", "banner.png", "/images/banner.png", "/images/banner.png", null));
-        assertThrows(NullPointerException.class, () -> AudioVideoMedia.with(null, "banner.png", "/images/banner.png", "/images/banner.png", MediaStatus.PENDING));
+    public void givenTwoVideosWithSameChecksumAndLocation_whenCallsEquals_ShouldReturnTrue() {
+        // given
+        final var expectedChecksum = "abc";
+        final var expectedRawLocation = "/images/ac";
 
+        final var img1 =
+                AudioVideoMedia.with(expectedChecksum, "Random", expectedRawLocation);
+
+        final var img2 =
+                AudioVideoMedia.with(expectedChecksum, "Simple", expectedRawLocation);
+
+        // then
+        assertEquals(img1, img2);
+        assertNotSame(img1, img2);
     }
 
+    @Test
+    public void givenInvalidParams_whenCallsWith_ShouldReturnError() {
+        assertThrows(
+                NullPointerException.class,
+                () -> AudioVideoMedia.with(null, "131", "Random", "/videos", "/videos", MediaStatus.PENDING)
+        );
 
+        assertThrows(
+                NullPointerException.class,
+                () -> AudioVideoMedia.with("id", "abc", null, "/videos", "/videos", MediaStatus.PENDING)
+        );
 
+        assertThrows(
+                NullPointerException.class,
+                () -> AudioVideoMedia.with("id", "abc", "Random", null, "/videos", MediaStatus.PENDING)
+        );
+
+        assertThrows(
+                NullPointerException.class,
+                () -> AudioVideoMedia.with("id", "abc", "Random", "/videos", null, MediaStatus.PENDING)
+        );
+
+        assertThrows(
+                NullPointerException.class,
+                () -> AudioVideoMedia.with("id", "abc", "Random", "/videos", "/videos", null)
+        );
+    }
 }

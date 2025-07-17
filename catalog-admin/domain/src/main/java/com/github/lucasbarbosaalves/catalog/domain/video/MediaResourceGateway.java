@@ -1,12 +1,10 @@
 package com.github.lucasbarbosaalves.catalog.domain.video;
 
-import com.github.lucasbarbosaalves.catalog.domain.resource.Resource;
-
 public interface MediaResourceGateway {
 
-    AudioVideoMedia storeAudioVideo(VideoID id, Resource resource);
+    AudioVideoMedia storeAudioVideo(VideoID id, VideoResource resource);
 
-    ImageMedia storeImage(VideoID id, Resource resource);
+    ImageMedia storeImage(VideoID id, VideoResource resource);
 
     void clearResources(VideoID id);
 }

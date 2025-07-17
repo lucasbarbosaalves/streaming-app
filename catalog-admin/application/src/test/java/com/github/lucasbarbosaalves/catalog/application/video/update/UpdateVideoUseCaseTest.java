@@ -1109,23 +1109,25 @@ public class UpdateVideoUseCaseTest extends UseCaseTest {
         verify(mediaResourceGateway, times(0)).clearResources(any());
     }
 
-    private void mockImageMedia() {
-        when(mediaResourceGateway.storeImage(any(), any())).thenAnswer(t -> {
-            final var resource = t.getArgument(1, Resource.class);
-            return ImageMedia.with(UUID.randomUUID().toString(), resource.name(), "/img");
-        });
+    private void mockAudioVideoMedia() {
+        when(mediaResourceGateway.storeAudioVideo(any(), any()))
+                .thenAnswer(t -> {
+                            final var videoResource = t.getArgument(1, VideoResource.class);
+                            final var resource = videoResource.resource();
+                            final var name = resource.name();
+                            return AudioVideoMedia.with(resource.checksum(), name, "/raw".concat(name));
+                        }
+
+                );
     }
 
-    private void mockAudioVideoMedia() {
-        when(mediaResourceGateway.storeAudioVideo(any(), any())).thenAnswer(t -> {
-            final var resource = t.getArgument(1, Resource.class);
-            return AudioVideoMedia.with(
-                    UUID.randomUUID().toString(),
-                    resource.name(),
-                    "/img",
-                    "",
-                    MediaStatus.PENDING
-            );
-        });
+    private void mockImageMedia() {
+        when(mediaResourceGateway.storeImage(any(), any()))
+                .thenAnswer(t -> {
+                    final var videoResource = t.getArgument(1, VideoResource.class);
+                    final var resource = videoResource.resource();
+                    final var name = resource.name();
+                    return ImageMedia.with(resource.checksum(), name, "/raw".concat(name));
+                });
     }
 }

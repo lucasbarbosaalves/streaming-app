@@ -6,9 +6,8 @@ import com.github.lucasbarbosaalves.catalog.domain.castmember.CastMemberType;
 import com.github.lucasbarbosaalves.catalog.domain.category.Category;
 import com.github.lucasbarbosaalves.catalog.domain.genre.Genre;
 import com.github.lucasbarbosaalves.catalog.domain.resource.Resource;
-import com.github.lucasbarbosaalves.catalog.domain.video.Rating;
-import com.github.lucasbarbosaalves.catalog.domain.video.Video;
-import com.github.lucasbarbosaalves.catalog.domain.video.VideoMediaType;
+import com.github.lucasbarbosaalves.catalog.domain.utils.IdUtils;
+import com.github.lucasbarbosaalves.catalog.domain.video.*;
 
 import java.time.Year;
 import java.util.Set;
@@ -41,6 +40,10 @@ public final class Fixture {
                 "Não cometa esses erros ao trabalhar com Microsserviços",
                 "Testes de Mutação. Você não testa seu software corretamente"
         );
+    }
+
+    public static String checksum() {
+        return "03fe62de";
     }
 
 
@@ -123,15 +126,21 @@ public final class Fixture {
             return FAKER.options().option(Rating.values());
         }
 
+        public static VideoMediaType mediaType() {
+            return FAKER.options().option(VideoMediaType.values());
+        }
+
+
         public static Resource resource(final VideoMediaType type) {
             final String contentType = Match(type).of(
                     Case($(List(VideoMediaType.VIDEO, VideoMediaType.TRAILER)::contains), "video/mp4"),
                     Case($(), "image/jpg")
             );
 
+            final String checksum = IdUtils.uuid();
             final byte[] content = "Conteudo".getBytes();
 
-            return Resource.with("checksum", content, contentType, FAKER.file().fileName());
+            return Resource.with(checksum, content, contentType, type.name().toLowerCase());
         }
 
 
@@ -144,6 +153,24 @@ public final class Fixture {
                             Nesse vídeo você entenderá o que é DTO (Data Transfer Object), quando e como utilizar no dia a dia, 
                             bem como sua importância para criar aplicações com alta qualidade.
                             """
+            );
+        }
+
+        public static AudioVideoMedia audioVideo(final VideoMediaType type) {
+            final var checksum = Fixture.checksum();
+            return AudioVideoMedia.with(
+                    checksum,
+                    type.name().toLowerCase(),
+                    "/videos/" + checksum
+            );
+        }
+
+        public static ImageMedia image(final VideoMediaType type) {
+            final var checksum = Fixture.checksum();
+            return ImageMedia.with(
+                    checksum,
+                    type.name().toLowerCase(),
+                    "/images/" + checksum
             );
         }
     }

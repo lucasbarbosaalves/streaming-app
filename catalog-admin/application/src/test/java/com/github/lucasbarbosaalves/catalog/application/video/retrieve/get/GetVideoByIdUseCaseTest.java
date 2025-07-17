@@ -128,6 +128,7 @@ public class GetVideoByIdUseCaseTest extends UseCaseTest {
                 type.name().toLowerCase(),
                 "/videos/" + checksum,
                 "",
+                "",
                 MediaStatus.PENDING
         );
     }
