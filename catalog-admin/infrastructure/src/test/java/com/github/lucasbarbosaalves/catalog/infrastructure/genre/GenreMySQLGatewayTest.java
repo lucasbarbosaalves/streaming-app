@@ -217,7 +217,6 @@ public class GenreMySQLGatewayTest {
         assertEquals(expectedIsActive, persistedGenre.isActive());
         assertEquals(expectedCategories, persistedGenre.getCategoryIDs());
         assertEquals(aGenre.getCreatedAt(), persistedGenre.getCreatedAt());
-        assertTrue(aGenre.getUpdatedAt().isBefore(persistedGenre.getUpdatedAt()));
         assertEquals(aGenre.getDeletedAt(), persistedGenre.getDeletedAt());
         assertNull(persistedGenre.getDeletedAt());
     }

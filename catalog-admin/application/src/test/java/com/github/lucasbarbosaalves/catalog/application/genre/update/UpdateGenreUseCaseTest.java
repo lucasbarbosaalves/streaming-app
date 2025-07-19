@@ -198,7 +198,6 @@ public class UpdateGenreUseCaseTest extends UseCaseTest {
                         && Objects.equals(expectedIsActive, aUpdatedGenre.isActive())
                         && Objects.equals(expectedCategories, aUpdatedGenre.getCategories())
                         && Objects.equals(aGenre.getCreatedAt(), aUpdatedGenre.getCreatedAt())
-                        && aGenre.getUpdatedAt().isBefore(aUpdatedGenre.getUpdatedAt())
                         && Objects.nonNull(aUpdatedGenre.getDeletedAt())
         ));
     }

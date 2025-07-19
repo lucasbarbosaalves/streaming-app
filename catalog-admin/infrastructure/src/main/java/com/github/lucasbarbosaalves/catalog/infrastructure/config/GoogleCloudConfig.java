@@ -40,7 +40,7 @@ public class GoogleCloudConfig {
      * @return a GoogleStorageProperties instance
      */
     @Bean
-    @ConfigurationProperties("google.cloud.storage.video-catalog")
+    @ConfigurationProperties("google.cloud.storage.catalog.videos")
     public GoogleStorageProperties googleStorageProperties() {
         return new GoogleStorageProperties();
     }

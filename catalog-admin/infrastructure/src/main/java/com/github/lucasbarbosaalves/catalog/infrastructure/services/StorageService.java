@@ -40,8 +40,8 @@ public interface StorageService {
     /**
      * Retrieves a resource by its name.
      *
-     * @param name the name of the resource to be retrieved
-     * @return the resource associated with the given name
+     * @param id the name of the resource to be retrieved
+     * @return the resource associated with the given id
      */
-    Optional<Resource> get(String name);
+    Optional<Resource> get(String id);
 }
