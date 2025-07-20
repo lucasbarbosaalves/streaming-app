@@ -23,6 +23,7 @@ public class StorageConfig {
 
     @Bean(name = "storageService")
     @Profile({"development", "production"})
+    @ConditionalOnMissingBean(StorageService.class)
     public StorageService googleCloudStorage(final GoogleStorageProperties props, final Storage storage) {
         return new GoogleCloudStorage(
                 props.getBucket(),
@@ -31,8 +32,8 @@ public class StorageConfig {
     }
 
     @Bean(name = "storageService")
-    @Profile("test")
-    @ConditionalOnMissingBean // This bean will only be created if no other StorageService bean is defined
+    @Profile({"test", "test-e2e", "test-integration"})
+    @ConditionalOnMissingBean(StorageService.class)
     public StorageService inMemoryStorage() {
         return new InMemoryStorageService();
     }
