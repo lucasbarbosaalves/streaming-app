@@ -2,6 +2,7 @@ package com.github.lucasbarbosaalves.catalog.application.video.delete;
 
 import com.github.lucasbarbosaalves.catalog.application.UseCaseTest;
 import com.github.lucasbarbosaalves.catalog.domain.exception.InternalErrorException;
+import com.github.lucasbarbosaalves.catalog.domain.video.MediaResourceGateway;
 import com.github.lucasbarbosaalves.catalog.domain.video.VideoGateway;
 import com.github.lucasbarbosaalves.catalog.domain.video.VideoID;
 import org.junit.jupiter.api.Test;
@@ -22,11 +23,14 @@ public class DeleteVideoUseCaseTest extends UseCaseTest {
     private DefaultDeleteVideoUseCase useCase;
 
     @Mock
+    private MediaResourceGateway mediaResourceGateway;
+
+    @Mock
     private VideoGateway videoGateway;
 
     @Override
     protected List<Object> getMocks() {
-        return List.of(videoGateway);
+        return List.of(videoGateway, mediaResourceGateway);
     }
 
     @Test
@@ -37,9 +41,13 @@ public class DeleteVideoUseCaseTest extends UseCaseTest {
         doNothing()
                 .when(videoGateway).deleteById(any());
 
+        doNothing()
+                .when(mediaResourceGateway).clearResources(any());
+
         assertDoesNotThrow(() -> useCase.execute(expectedId.getValue()));
 
         verify(videoGateway).deleteById(eq(expectedId));
+        verify(mediaResourceGateway).clearResources(eq(expectedId));
     }
 
 
@@ -51,9 +59,13 @@ public class DeleteVideoUseCaseTest extends UseCaseTest {
         doNothing()
                 .when(videoGateway).deleteById(any());
 
+        doNothing()
+                .when(mediaResourceGateway).clearResources(any());
+
         assertDoesNotThrow(() -> useCase.execute(expectedId.getValue()));
 
         verify(videoGateway).deleteById(eq(expectedId));
+        verify(mediaResourceGateway).clearResources(eq(expectedId));
     }
 
     @Test
