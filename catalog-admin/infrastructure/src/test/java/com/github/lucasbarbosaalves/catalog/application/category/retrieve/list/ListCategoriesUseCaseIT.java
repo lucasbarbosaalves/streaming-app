@@ -2,6 +2,7 @@ package com.github.lucasbarbosaalves.catalog.application.category.retrieve.list;
 
 import com.github.lucasbarbosaalves.catalog.IntegrationTest;
 import com.github.lucasbarbosaalves.catalog.domain.category.Category;
+import com.github.lucasbarbosaalves.catalog.domain.category.CategoryID;
 import com.github.lucasbarbosaalves.catalog.domain.pagination.SearchQuery;
 import com.github.lucasbarbosaalves.catalog.infrastructure.category.persistence.CategoryJpaEntity;
 import com.github.lucasbarbosaalves.catalog.infrastructure.category.persistence.CategoryRepository;
@@ -11,6 +12,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.time.Instant;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -26,14 +28,16 @@ public class ListCategoriesUseCaseIT {
 
     @BeforeEach
     void mockUp() {
+        categoryRepository.deleteAll();
+        Instant now = Instant.now();
         final var categories = Stream.of(
-                        Category.newCategory("Filmes", null, true),
-                        Category.newCategory("Netflix Originals", "Títulos de autoria da Netflix", true),
-                        Category.newCategory("Amazon Originals", "Títulos de autoria da Amazon Prime", true),
-                        Category.newCategory("Documentários", null, true),
-                        Category.newCategory("Sports", null, true),
-                        Category.newCategory("Kids", "Categoria para crianças", true),
-                        Category.newCategory("Series", null, true)
+                        Category.with(CategoryID.unique(), "Filmes", null, true, now.plusMillis(0), now.plusMillis(0), null),
+                        Category.with(CategoryID.unique(), "Netflix Originals", "Títulos de autoria da Netflix", true, now.plusMillis(1), now.plusMillis(1), null),
+                        Category.with(CategoryID.unique(), "Amazon Originals", "Títulos de autoria da Amazon Prime", true, now.plusMillis(2), now.plusMillis(2), null),
+                        Category.with(CategoryID.unique(), "Documentários", null, true, now.plusMillis(3), now.plusMillis(3), null),
+                        Category.with(CategoryID.unique(), "Sports", null, true, now.plusMillis(4), now.plusMillis(4), null),
+                        Category.with(CategoryID.unique(), "Kids", "Categoria para crianças", true, now.plusMillis(5), now.plusMillis(5), null),
+                        Category.with(CategoryID.unique(), "Series", null, true, now.plusMillis(6), now.plusMillis(6), null)
                 )
                 .map(CategoryJpaEntity::from)
                 .toList();

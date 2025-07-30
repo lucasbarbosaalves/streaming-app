@@ -12,8 +12,28 @@ repositories {
 dependencies {
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
+
+    testImplementation('com.github.javafaker:javafaker:1.0.2')
+    // https://mvnrepository.com/artifact/io.vavr/vavr
+    implementation 'io.vavr:vavr:0.10.4'
 }
 
 tasks.test {
     useJUnitPlatform()
+}
+
+configurations {
+    testClasses {
+        extendsFrom(testImplementation)
+    }
+}
+
+// This task creates a JAR file containing the compiled test classes.
+task testJar(type: Jar) {
+    archiveClassifier.set("test")
+    from(sourceSets.test.output)
+}
+
+artifacts {
+    testClasses testJar
 }

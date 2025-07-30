@@ -1,9 +1,9 @@
 package com.github.lucasbarbosaalves.catalog.domain.category;
 
 import com.github.lucasbarbosaalves.catalog.domain.Identifier;
+import com.github.lucasbarbosaalves.catalog.domain.utils.IdUtils;
 
 import java.util.Objects;
-import java.util.UUID;
 
 public class CategoryID extends Identifier {
 
@@ -15,15 +15,11 @@ public class CategoryID extends Identifier {
     }
 
     public static CategoryID unique() {
-        return CategoryID.from(UUID.randomUUID());
+        return CategoryID.from(IdUtils.uuid());
     }
 
     public static CategoryID from(final String value) {
         return new CategoryID(value);
-    }
-
-    public static CategoryID from(final UUID value) {
-        return new CategoryID(value.toString().toLowerCase());
     }
 
     @Override

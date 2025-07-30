@@ -1,7 +1,7 @@
 package com.github.lucasbarbosaalves.catalog.application.castmember.retrieve.list;
 
-import com.github.lucasbarbosaalves.catalog.application.Fixture;
 import com.github.lucasbarbosaalves.catalog.application.UseCaseTest;
+import com.github.lucasbarbosaalves.catalog.domain.Fixture;
 import com.github.lucasbarbosaalves.catalog.domain.castmember.CastMember;
 import com.github.lucasbarbosaalves.catalog.domain.castmember.CastMemberGateway;
 import com.github.lucasbarbosaalves.catalog.domain.pagination.Pagination;
@@ -35,8 +35,8 @@ public class ListCastMembersUseCaseTest extends UseCaseTest {
     public void givenAValidQuery_whenCallsListCastMembers_shouldReturnAll() {
         // given
         final var members = List.of(
-                CastMember.newMember(Fixture.name(), Fixture.CastMember.type()),
-                CastMember.newMember(Fixture.name(), Fixture.CastMember.type())
+                CastMember.newMember(Fixture.name(), Fixture.CastMembers.type()),
+                CastMember.newMember(Fixture.name(), Fixture.CastMembers.type())
         );
 
         final var expectedPage = 0;

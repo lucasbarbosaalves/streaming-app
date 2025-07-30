@@ -7,6 +7,7 @@ import com.github.lucasbarbosaalves.catalog.domain.pagination.Pagination;
 import com.github.lucasbarbosaalves.catalog.domain.pagination.SearchQuery;
 import com.github.lucasbarbosaalves.catalog.infrastructure.category.persistence.CategoryJpaEntity;
 import com.github.lucasbarbosaalves.catalog.infrastructure.category.persistence.CategoryRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
@@ -29,6 +30,7 @@ public class CategoryMySQLGateway implements CategoryGateway {
     }
 
     @Override
+    @Transactional
     public Category create(final Category category) {
         return save(category);
     }

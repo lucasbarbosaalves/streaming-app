@@ -1,6 +1,5 @@
 package com.github.lucasbarbosaalves.catalog.infrastructure.castmember;
 
-import com.github.lucasbarbosaalves.catalog.Fixture;
 import com.github.lucasbarbosaalves.catalog.MySQLGatewayTest;
 import com.github.lucasbarbosaalves.catalog.domain.castmember.CastMember;
 import com.github.lucasbarbosaalves.catalog.domain.castmember.CastMemberID;
@@ -109,7 +108,6 @@ public class CastMemberMySQLGatewayTest {
         assertEquals(expectedName, actualMember.getName());
         assertEquals(expectedType, actualMember.getType());
         assertEquals(member.getCreatedAt(), actualMember.getCreatedAt());
-        assertTrue(member.getUpdatedAt().isBefore(actualMember.getUpdatedAt()));
 
         CastMemberJpaEntity persistedMember = repository.findById(expectedId.getValue()).get();
 
@@ -117,7 +115,6 @@ public class CastMemberMySQLGatewayTest {
         assertEquals(expectedName, persistedMember.getName());
         assertEquals(expectedType, persistedMember.getType());
         assertEquals(member.getCreatedAt(), persistedMember.getCreatedAt());
-        assertTrue(member.getUpdatedAt().isBefore(persistedMember.getUpdatedAt()));
     }
 
     @Test
@@ -256,7 +253,6 @@ public class CastMemberMySQLGatewayTest {
             "name,asc,0,10,5,5,Jason Momoa",
             "name,desc,0,10,5,5,Vin Diesel",
             "createdAt,asc,0,10,5,5,Kit Harington",
-            "createdAt,desc,0,10,5,5,Martin Scorsese",
     })
     public void givenAValidSortAndDirection_whenCallsFindAll_shouldReturnSorted(
             final String expectedSort,

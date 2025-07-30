@@ -1,10 +1,10 @@
 package com.github.lucasbarbosaalves.catalog.domain.category;
 
 import com.github.lucasbarbosaalves.catalog.domain.AggregateRoot;
+import com.github.lucasbarbosaalves.catalog.domain.utils.InstantUtils;
 import com.github.lucasbarbosaalves.catalog.domain.validation.ValidationHandler;
 
 import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
 public class Category extends AggregateRoot<CategoryID> implements Cloneable{
@@ -28,7 +28,7 @@ public class Category extends AggregateRoot<CategoryID> implements Cloneable{
 
     public static Category newCategory(final String name, final String description, final boolean isActive) {
         final var id = CategoryID.unique();
-        final var now = Instant.now().truncatedTo(ChronoUnit.MICROS);
+        final var now = InstantUtils.now();
         final var deletedAt = isActive ? null : now;
         return new Category(id, name, description, isActive, now, now, deletedAt);
     }
@@ -57,17 +57,17 @@ public class Category extends AggregateRoot<CategoryID> implements Cloneable{
     public Category activate() {
         this.deleteAt = null;
         this.isActive = true;
-        this.updatedAt = Instant.now();
+        this.updatedAt = InstantUtils.now();
         return this;
     }
 
     public Category deactivate() {
         if (getDeleteAt() == null) {
-            this.deleteAt = Instant.now();
+            this.deleteAt = InstantUtils.now();
         }
 
         this.isActive = false;
-        this.updatedAt = Instant.now();
+        this.updatedAt = InstantUtils.now();
         return this;
     }
         public CategoryID getId() {

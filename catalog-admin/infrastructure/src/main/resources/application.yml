@@ -1,3 +1,38 @@
+amqp:
+  admin:
+    auto-create: false
+  queues:
+    video-created:
+      exchange: video.events
+      queue: video.created.queue
+      routing-key: video.created
+    video-encoded:
+      exchange: video.events
+      queue: video.encoded.queue
+      routing-key: video.encoded
+google:
+  cloud:
+    credentials: ${GOOGLE_CLOUD_CREDENTIALS}
+    project-id: ${GOOGLE_CLOUD_PROJECT_ID}
+    storage:
+      catalog:
+        videos:
+          bucket: lba_video_catalog
+          connectTimeout: 1000
+          readTimeout: 2000
+          retryDelay: 50
+          retryMaxDelay: 50
+          retryMaxAttempts: 2
+          retryMultiplier: 1.0
+storage:
+  catalog:
+    videos:
+      location-pattern: video--{videoId}
+      filename-pattern: type--{type}
+logging:
+  level:
+    root: info
+    com.github.lucasbarbosaalves.catalog: debug
 server:
   port: 8080
   compression:
@@ -30,3 +65,9 @@ spring:
         "[hibernate.dialect]": org.hibernate.dialect.MySQLDialect
         "[hibernate.generate_statistics]": false
         "[hibernate.connection.provider_disables_autocommit]": true
+  rabbitmq:
+    host: ${amqp.host}
+    port: ${amqp.port}
+    username: ${amqp.username}
+    password: ${amqp.password}
+    dynamic: ${amqp.admin.auto-create}

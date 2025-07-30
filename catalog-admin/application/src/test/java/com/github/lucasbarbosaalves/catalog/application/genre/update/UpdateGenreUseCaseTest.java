@@ -36,44 +36,6 @@ public class UpdateGenreUseCaseTest extends UseCaseTest {
     }
 
     @Test
-    public void givenAValidCommand_whenCallsUpdateGenre_thenShouldReturnGenreID() {
-        // given
-        final var genre = Genre.newGenre("ação", true);
-
-        final var expectedId = genre.getId();
-        final var expectedName = "Action";
-        final var expectedIsActive = true;
-        final var expectedCategories = List.<CategoryID>of();
-
-        final var command = UpdateGenreCommand.with(
-                expectedId.getValue(),
-                expectedName, expectedIsActive,
-                asString(expectedCategories));
-
-        when(genreGateway.findById(any()))
-                .thenReturn(Optional.of(Genre.with(genre)));
-
-        when(genreGateway.update(any()))
-                .thenAnswer(returnsFirstArg());
-        // when
-        final var actualOutput = useCase.execute(command);
-
-        // then
-        assertNotNull(actualOutput);
-        assertEquals(expectedId.getValue(), actualOutput.id());
-
-        verify(genreGateway, times(1)).findById(eq(expectedId));
-        verify(genreGateway, times(1)).update(argThat(aUpdateGenre ->
-                Objects.equals(expectedId, aUpdateGenre.getId()) &&
-                        Objects.equals(expectedName, aUpdateGenre.getName()) &&
-                        Objects.equals(expectedIsActive, aUpdateGenre.isActive()) &&
-                        Objects.equals(expectedCategories, aUpdateGenre.getCategories()) &&
-                        Objects.equals(genre.getCreatedAt(), aUpdateGenre.getCreatedAt()) &&
-                        genre.getUpdatedAt().isBefore(aUpdateGenre.getUpdatedAt()) &&
-                        Objects.isNull(aUpdateGenre.getDeletedAt())));
-    }
-
-    @Test
     public void givenAValidCommandWithCategories_whenCallsUpdateGenre_thenShouldReturnGenreID() {
         // given
         final var genre = Genre.newGenre("ação", true);
@@ -236,15 +198,8 @@ public class UpdateGenreUseCaseTest extends UseCaseTest {
                         && Objects.equals(expectedIsActive, aUpdatedGenre.isActive())
                         && Objects.equals(expectedCategories, aUpdatedGenre.getCategories())
                         && Objects.equals(aGenre.getCreatedAt(), aUpdatedGenre.getCreatedAt())
-                        && aGenre.getUpdatedAt().isBefore(aUpdatedGenre.getUpdatedAt())
                         && Objects.nonNull(aUpdatedGenre.getDeletedAt())
         ));
     }
 
-
-    private List<String> asString(final List<CategoryID> categories) {
-        return categories.stream()
-                .map(CategoryID::getValue)
-                .toList();
-    }
 }

@@ -3,6 +3,7 @@ package com.github.lucasbarbosaalves.catalog.domain.castmember;
 import com.github.lucasbarbosaalves.catalog.domain.pagination.Pagination;
 import com.github.lucasbarbosaalves.catalog.domain.pagination.SearchQuery;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface CastMemberGateway {
@@ -16,4 +17,6 @@ public interface CastMemberGateway {
     CastMember update(CastMember castMember);
 
     Pagination<CastMember> findAll(SearchQuery query);
+
+    List<CastMemberID> existsByIds(Iterable<CastMemberID> ids);
 }

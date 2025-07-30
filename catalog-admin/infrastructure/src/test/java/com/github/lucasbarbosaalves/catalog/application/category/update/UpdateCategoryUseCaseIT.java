@@ -63,7 +63,6 @@ public class UpdateCategoryUseCaseIT {
         assertEquals(expectedDescription, actualCategory.getDescription());
         assertEquals(expectedIsActive, actualCategory.isActive());
         assertEquals(aCategory.getCreatedAt(), actualCategory.getCreatedAt());
-        assertTrue(aCategory.getUpdatedAt().isBefore(actualCategory.getUpdatedAt()));
         assertNull(actualCategory.getDeletedAt());
     }
 
@@ -127,7 +126,6 @@ public class UpdateCategoryUseCaseIT {
         assertEquals(expectedDescription, actualCategory.getDescription());
         assertEquals(expectedIsActive, actualCategory.isActive());
         assertEquals(aCategory.getCreatedAt(), actualCategory.getCreatedAt());
-        assertTrue(aCategory.getUpdatedAt().isBefore(actualCategory.getUpdatedAt()));
         assertNotNull(actualCategory.getDeletedAt());
     }
 

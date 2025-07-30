@@ -31,10 +31,11 @@ public class CastMemberE2ETest implements MockDsl {
     private CastMemberRepository castMemberRepository;
 
     @Container
-    private static final MySQLContainer MYSQL_CONTAINER = new MySQLContainer("mysql:latest")
-            .withPassword("123456")
+    private static final MySQLContainer<?> MYSQL_CONTAINER = new MySQLContainer<>("mysql:8.0.34")
+            .withPassword("root")
             .withUsername("root")
-            .withDatabaseName("adm_videos");
+            .withDatabaseName("video_admin");
+
 
     @DynamicPropertySource
     public static void setDatasourceProperties(final DynamicPropertyRegistry registry) {

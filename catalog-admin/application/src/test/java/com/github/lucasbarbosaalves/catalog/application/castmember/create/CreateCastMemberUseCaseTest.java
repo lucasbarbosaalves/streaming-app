@@ -1,7 +1,7 @@
 package com.github.lucasbarbosaalves.catalog.application.castmember.create;
 
-import com.github.lucasbarbosaalves.catalog.application.Fixture;
 import com.github.lucasbarbosaalves.catalog.application.UseCaseTest;
+import com.github.lucasbarbosaalves.catalog.domain.Fixture;
 import com.github.lucasbarbosaalves.catalog.domain.castmember.CastMemberGateway;
 import com.github.lucasbarbosaalves.catalog.domain.exception.NotificationException;
 import org.junit.jupiter.api.Test;
@@ -34,7 +34,7 @@ public class CreateCastMemberUseCaseTest extends UseCaseTest {
     public void givenAValidCommand_whenCallsCreateCastMember_shouldReturnIt() {
         // Given
         final var expectedName = Fixture.name();
-        final var expectedType = Fixture.CastMember.type();
+        final var expectedType = Fixture.CastMembers.type();
 
         final var aCommand = CreateCastMemberCommand.with(expectedName, expectedType);
 
@@ -61,7 +61,7 @@ public class CreateCastMemberUseCaseTest extends UseCaseTest {
     public void givenAInvalidEmptyName_whenCallsCreatCastMember_thenShouldReturnNotificationException() {
         //given
         final String expectedName = " ";
-        final var expectedType = Fixture.CastMember.type();
+        final var expectedType = Fixture.CastMembers.type();
         final var expectedErrorMessage = "'name' should not be empty";
         final var expectedErrorCount = 1;
 
@@ -84,7 +84,7 @@ public class CreateCastMemberUseCaseTest extends UseCaseTest {
     public void givenAInvalidNullName_whenCallsCreateCastMember_thenShouldReturnNotificationException() {
         //given
         final String expectedName = null;
-        final var expectedType = Fixture.CastMember.type();
+        final var expectedType = Fixture.CastMembers.type();
         
         final var expectedErrorMessage = "'name' should not be null";
         final var expectedErrorCount = 1;
@@ -107,7 +107,7 @@ public class CreateCastMemberUseCaseTest extends UseCaseTest {
     public void givenAInvalidNameGreaterThan255_whenCallsCreateCastMember_thenShouldReturnNotificationException() {
         //given
         final String expectedName = "n".repeat(256);
-        final var expectedType = Fixture.CastMember.type();
+        final var expectedType = Fixture.CastMembers.type();
         final var expectedErrorMessage = "'name' must be between 3 and 255 characters";
         final var expectedErrorCount = 1;
 

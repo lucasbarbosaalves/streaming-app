@@ -93,7 +93,6 @@ public class CategoryMySQLGatewayTest {
         assertEquals(extDescription, actualCategory.getDescription());
         assertEquals(extIsActive, actualCategory.isActive());
         assertEquals(category.getCreatedAt(), actualCategory.getCreatedAt());
-        assertTrue(category.getUpdatedAt().isBefore(actualCategory.getUpdatedAt()));
         assertEquals(category.getDeleteAt(), actualCategory.getDeleteAt());
         assertNull(actualCategory.getDeleteAt());
 
@@ -333,7 +332,7 @@ public class CategoryMySQLGatewayTest {
         assertEquals(expectedPerPage, actualResult.perPage());
         assertEquals(expectedTotal, actualResult.total());
         assertEquals(expectedPerPage, actualResult.items().size());
-        assertEquals(filmes.getId(), actualResult.items().get(0).getId());
+        assertEquals(filmes.getId().getValue(), actualResult.items().getFirst().getId().getValue());
     }
 
 

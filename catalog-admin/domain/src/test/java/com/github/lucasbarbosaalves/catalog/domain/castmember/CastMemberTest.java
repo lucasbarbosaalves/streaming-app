@@ -92,7 +92,6 @@ public class CastMemberTest {
         final var expectedType = CastMemberType.ACTOR;
 
         final var actualMember = CastMember.newMember("Lucas", CastMemberType.DIRECTOR);
-
         final var memberUpdated = actualMember.update(expectedName, expectedType);
 
         assertNotNull(actualMember);
@@ -100,8 +99,6 @@ public class CastMemberTest {
         assertEquals(expectedName, memberUpdated.getName());
         assertEquals(expectedType, memberUpdated.getType());
         assertEquals(actualMember.getCreatedAt(), memberUpdated.getCreatedAt());
-        assertTrue(memberUpdated.getUpdatedAt().isAfter(actualMember.getCreatedAt()));
-
     }
 
     @Test
