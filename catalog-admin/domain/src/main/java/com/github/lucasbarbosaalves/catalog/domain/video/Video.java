@@ -3,16 +3,14 @@ package com.github.lucasbarbosaalves.catalog.domain.video;
 import com.github.lucasbarbosaalves.catalog.domain.AggregateRoot;
 import com.github.lucasbarbosaalves.catalog.domain.castmember.CastMemberID;
 import com.github.lucasbarbosaalves.catalog.domain.category.CategoryID;
+import com.github.lucasbarbosaalves.catalog.domain.events.DomainEvent;
 import com.github.lucasbarbosaalves.catalog.domain.genre.GenreID;
 import com.github.lucasbarbosaalves.catalog.domain.utils.InstantUtils;
 import com.github.lucasbarbosaalves.catalog.domain.validation.ValidationHandler;
 
 import java.time.Instant;
 import java.time.Year;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 public class Video extends AggregateRoot<VideoID> {
 
@@ -57,9 +55,10 @@ public class Video extends AggregateRoot<VideoID> {
             final AudioVideoMedia aVideo,
             final Set<CategoryID> categories,
             final Set<GenreID> genres,
-            final Set<CastMemberID> members
+            final Set<CastMemberID> members,
+            final List<DomainEvent> domainEvents
     ) {
-        super(anId);
+        super(anId, domainEvents);
         this.title = aTitle;
         this.description = aDescription;
         this.launchedAt = aLaunchYear;
@@ -252,7 +251,8 @@ public class Video extends AggregateRoot<VideoID> {
                 null,
                 categories,
                 genres,
-                members
+                members,
+                null
         );
     }
 
@@ -275,7 +275,8 @@ public class Video extends AggregateRoot<VideoID> {
                 aVideo.getVideo().orElse(null),
                 new HashSet<>(aVideo.getCategories()),
                 new HashSet<>(aVideo.getGenres()),
-                new HashSet<>(aVideo.getCastMembers())
+                new HashSet<>(aVideo.getCastMembers()),
+                aVideo.getDomainEvents()
         );
     }
 
@@ -319,7 +320,8 @@ public class Video extends AggregateRoot<VideoID> {
                 aVideo,
                 categories,
                 genres,
-                members
+                members,
+                null
         );
 
     }
